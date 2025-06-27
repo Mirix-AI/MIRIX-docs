@@ -1,0 +1,95 @@
+site_name: Mirix Documentation
+site_description: Multi-agent personal assistant for intelligent screen activity tracking
+site_author: Mirix Team
+site_url: https://mirix-ai.github.io/MIRIX-docs/
+
+repo_name: Mirix-AI/MIRIX-docs
+repo_url: https://github.com/Mirix-AI/MIRIX-docs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - search.highlight
+    - search.share
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+  - mkdocstrings
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Overview: getting-started/overview.md
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+  - Architecture:
+    - Multi-Agent System: architecture/multi-agent-system.md
+    - Memory Components: architecture/memory-components.md
+    - Search Capabilities: architecture/search-capabilities.md
+  - User Guide:
+    - Desktop App: user-guide/desktop-app.md
+    - Backend Usage: user-guide/backend-usage.md
+    - Memory Management: user-guide/memory-management.md
+  - API Reference:
+    - Agent API: api/agent-api.md
+    - Memory API: api/memory-api.md
+  - Advanced:
+    - Performance: advanced/performance.md
+    - Security & Privacy: advanced/security-privacy.md
+    - Backup & Restore: advanced/backup-restore.md
+  - Contributing: contributing.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Mirix-AI/Mirix
+    - icon: fontawesome/solid/envelope
+      link: mailto:yuw164@ucsd.edu
+
+copyright: Copyright &copy; 2024 Mirix Team 
