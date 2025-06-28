@@ -2,29 +2,6 @@
 
 MIRIX organizes information into six distinct memory components, each designed to handle specific types of data and provide optimal retrieval performance.
 
-## Memory Architecture Overview
-
-```mermaid
-graph TD
-    A[Raw Input] --> B[Meta Agent Analysis]
-    
-    B --> C[Core Memory<br/>Personal & Persistent]
-    B --> D[Episodic Memory<br/>Events & Activities]
-    B --> E[Semantic Memory<br/>Knowledge & Concepts]
-    B --> F[Procedural Memory<br/>Workflows & Processes]
-    B --> G[Resource Memory<br/>Documents & Files]
-    B --> H[Knowledge Vault<br/>Structured Data]
-    
-    C --> I[Unified Search]
-    D --> I
-    E --> I
-    F --> I
-    G --> I
-    H --> I
-    
-    I --> J[Intelligent Responses]
-```
-
 ## 1. Core Memory
 
 **Purpose**: Persistent information that should always be visible to the agent when interacting with the user.
@@ -33,38 +10,19 @@ graph TD
 
 ### Structure
 
-Core Memory is organized in multiple blocks with line indicators:
+Core Memory is organized in multiple blocks (`human` and `persona`)
 
 ```
-Line 1: User's name is David
-Line 2: User prefers coffee over tea
-Line 3: User works as a software engineer
-Line 4: User enjoys reading sci-fi novels
-...
-```
+<human 117/500 characters>
+User's name is David
+User prefers coffee over tea
+User works as a software engineer
+User enjoys reading sci-fi novels
+</human>
 
-### Key Features
-
-- **Persistent Visibility**: Always available during conversations
-- **Two Main Blocks**:
-  - `persona`: The agent's personality and behavior
-  - `human`: Saved understanding of the user
-- **Auto-Rewriting**: When blocks exceed 90% capacity, they are automatically rewritten to maintain optimal size
-- **Essential Information**: Stores critical facts that define the user-agent relationship
-
-### Example Content
-
-```
-=== PERSONA ===
-Line 1: I am MIRIX, a helpful AI assistant specializing in memory management
-Line 2: I track user activities and provide context-aware assistance
-Line 3: I maintain detailed memories of user interactions and preferences
-
-=== HUMAN ===
-Line 1: User's name is Sarah, works as a data scientist
-Line 2: User prefers PostgreSQL over SQLite for databases
-Line 3: User is currently working on a machine learning project
-Line 4: User has meetings every Tuesday at 2 PM
+<persona 24/5000 characters>
+I am a helpful assistant
+</persona>
 ```
 
 ## 2. Episodic Memory
@@ -83,34 +41,6 @@ Each episodic entry contains:
   "actor": "user",
   "timestamp": "2025-03-05 10:15"
 }
-```
-
-### Event Types
-
-- `user_message`: Direct user communications
-- `inferred_results`: System-inferred activities from screen capture
-- `system_notification`: Automated system events
-- `workflow_completion`: Completed task sequences
-
-### Example Entries
-
-```json
-[
-  {
-    "event_type": "user_message",
-    "summary": "Started working on documentation",
-    "details": "Opened VSCode, created new markdown files for project documentation, began writing API specifications",
-    "actor": "user",
-    "timestamp": "2025-03-05 09:30"
-  },
-  {
-    "event_type": "inferred_results",
-    "summary": "Switched to email client",
-    "details": "Closed development environment, opened Gmail, reviewed 5 new emails, responded to client inquiry about project timeline",
-    "actor": "assistant",
-    "timestamp": "2025-03-05 10:45"
-  }
-]
 ```
 
 ## 3. Semantic Memory
@@ -133,9 +63,8 @@ Each semantic entry includes:
 ### Content Types
 
 - **Factual Knowledge**: "Harry Potter is written by J.K. Rowling"
-- **Relationships**: "John is a good friend who likes jogging"
+- **Facts and Understandings about Other People**: "John is user's good friend who likes jogging"
 - **Concepts**: "Machine learning algorithms and their applications"
-- **Preferences**: "User prefers dark mode in development environments"
 
 ### Example Entries
 
@@ -179,12 +108,6 @@ Each procedural entry contains:
   ]
 }
 ```
-
-### Entry Types
-
-- `workflow`: Multi-step processes
-- `guide`: How-to instructions
-- `script`: Automated procedures
 
 ### Example Entries
 
@@ -234,16 +157,6 @@ Each resource entry includes:
 }
 ```
 
-### Resource Types
-
-- `doc`: Microsoft Word documents
-- `markdown`: Markdown files
-- `pdf_text`: Extracted text from PDFs
-- `image`: Image files with descriptions
-- `voice_transcript`: Transcribed audio content
-- `code`: Source code files
-- `spreadsheet`: Excel/CSV data
-
 ### Example Entries
 
 ```json
@@ -280,13 +193,6 @@ Each vault entry contains:
   "caption": "GitHub Personal Access Token for API access"
 }
 ```
-
-### Entry Types
-
-- `credential`: Login information and tokens
-- `bookmark`: Important URLs and links
-- `api_key`: Service API keys and secrets
-- `contact_info`: Personal contact information
 
 ### Sensitivity Levels
 
@@ -331,32 +237,15 @@ Each vault entry contains:
 
 ## Memory Interaction Patterns
 
-### Cross-Memory Relationships
-
-```mermaid
-graph LR
-    A[Core Memory] --> B[Episodic Memory]
-    A --> C[Semantic Memory]
-    
-    B --> D[Procedural Memory]
-    C --> D
-    
-    E[Resource Memory] --> C
-    E --> D
-    
-    F[Knowledge Vault] --> A
-    F --> E
-```
-
 ### Search Integration
 
 All memory components support unified search:
 
 ```python
 # Search across all memory types
-results = search_memory(
+results = search_in_memory(
     query="machine learning project",
-    memory_types=["core", "episodic", "semantic", "procedural", "resource"],
+    memory_type='episodic', # can be chosen from ['all', 'episodic', 'semantic', 'resource', 'procedural', 'knowledge_vault']
     limit=20
 )
 ```
@@ -372,13 +261,13 @@ results = search_memory(
 - **Resource Memory**: Compresses or removes unused resources
 - **Knowledge Vault**: Expires outdated credentials
 
+<!-- 
 ### Performance Tuning
-
 - **Indexing**: Optimized database indexes for fast retrieval
 - **Caching**: Frequently accessed data cached in memory
 - **Compression**: Large content compressed to save space
-- **Partitioning**: Data partitioned by date and type for efficient queries
-
+- **Partitioning**: Data partitioned by date and type for efficient queries -->
+<!-- 
 ## Best Practices
 
 ### Memory Organization
@@ -395,7 +284,7 @@ results = search_memory(
 - Use specific queries for better results
 - Combine memory types for comprehensive answers
 - Leverage field-specific search when needed
-- Regular memory cleanup for optimal performance
+- Regular memory cleanup for optimal performance -->
 
 ## What's Next?
 

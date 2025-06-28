@@ -42,10 +42,11 @@ MIRIX can process text, images, and voice recordings together:
 agent.send_message(
     message="I'm working on a new project about machine learning.",
     image_uris=["/path/to/screenshot1.png", "/path/to/screenshot2.png"],
-    voice_files=["base64_encoded_audio_1", "base64_encoded_audio_2"],
     force_absorb_content=True
 )
 ```
+<!-- voice_files=["base64_encoded_audio_1", "base64_encoded_audio_2"], -->
+
 
 #### Structured Multi-Modal Messages
 
@@ -59,10 +60,11 @@ agent.send_message(
         {'type': 'image', 'image_url': "base64_encoded_image"}
     ],
     image_uris=["/path/to/image_1", "/path/to/image_2"],
-    voice_files=["base64_encoded_audio"],
     force_absorb_content=True
 )
 ```
+
+<!-- voice_files=["base64_encoded_audio"], -->
 
 ### Conversational Queries
 
@@ -117,28 +119,29 @@ message = [
     {'type': 'image', 'image_url': "data:image/png;base64,iVBORw0KGgoAAAANS..."}
 ]
 ```
+The images included here are in the user query. When the agent is generating responses, it will respond to the multi-modal query.  
 
 #### Image Handling
+These are background images that will be treated as screenshots, the agent will not respond to these images, but rather extract information from them and save into memory.
 
 ```python
-# Use local file paths (recommended)
+# Use local file paths
 image_uris = [
     "/Users/username/Screenshots/screenshot1.png",
-    "/Users/username/Documents/diagram.jpg"
+    "/Users/username/Screenshots/screenshot2.png",
 ]
-
-# Avoid base64 encoding for image_uris to prevent memory issues
 ```
 
 #### Voice Files
+Under Robustness Test, Coming Soon.
 
-```python
+<!-- ```python
 # Base64-encoded audio data
 voice_files = [
     "UklGRnoGAABXQVZFZm10IBAAAAABAAEA...",  # base64 audio
     "UklGRnoGAABXQVZFZm10IBAAAAABAAEA..."   # base64 audio
 ]
-```
+``` -->
 
 ## Complete Workflow Examples
 
@@ -169,7 +172,7 @@ agent.send_message(
     force_absorb_content=False
 )
 
-# Important meeting (immediate processing)
+# Important meeting (immediate processing all existing accumulated messages)
 agent.send_message(
     message="Team meeting - discussed Q4 roadmap, new feature priorities",
     voice_files=["base64_meeting_recording"],
@@ -217,7 +220,9 @@ findings = agent.send_message("What are the key points about optimization techni
 print("Research Findings:", findings)
 ```
 
-### Example 3: Document Processing
+
+
+<!-- ### Example 3: Document Processing
 
 ```python
 # Processing multiple documents
@@ -238,181 +243,8 @@ for doc_path in documents:
 response = agent.send_message("What are the main points from the project proposal?")
 print("Document Summary:", response)
 ```
-
-## Advanced Features
-
-### Memory Search
-
-```python
-# Search across all memory types
-results = agent.search_memory("machine learning algorithms")
-
-# Search specific memory types
-results = agent.search_memory(
-    query="project documentation",
-    memory_types=["resource", "procedural"],
-    limit=20
-)
-```
-
-### Backup and Restore
-
-```python
-# Create backup
-result = agent.save_agent("./backup_folder")
-print(result['message'])
-
-# Restore from backup
-agent = AgentWrapper("./configs/mirix.yaml", load_from="./backup_folder")
-```
-
-## Performance Optimization
-
-### Batch Processing Strategy
-
-```python
-# Collect multiple activities before processing
-activities = []
-
-# Throughout the day
-activities.append({
-    "message": "Email review session",
-    "images": ["/screenshots/gmail.png"]
-})
-
-activities.append({
-    "message": "Code development", 
-    "images": ["/screenshots/vscode.png"]
-})
-
-# Process batch at end of day
-for activity in activities:
-    agent.send_message(
-        message=activity["message"],
-        image_uris=activity["images"],
-        force_absorb_content=False  # Batch processing
-    )
-
-# Force final processing
-agent.send_message(
-    message="End of day summary",
-    force_absorb_content=True
-)
-```
-
-### Memory Management
-
-```python
-# Monitor memory usage
-memory_stats = agent.get_memory_statistics()
-print(f"Total memories: {memory_stats['total_count']}")
-print(f"Memory size: {memory_stats['total_size_mb']} MB")
-
-# Clean up old memories (if supported)
-agent.cleanup_old_memories(days_old=30)
-```
-
-## Error Handling
-
-```python
-try:
-    response = agent.send_message(
-        message="Test message",
-        image_uris=["/invalid/path.png"],
-        force_absorb_content=True
-    )
-except FileNotFoundError as e:
-    print(f"Image file not found: {e}")
-except Exception as e:
-    print(f"Error processing message: {e}")
-```
-
-## Integration Patterns
-
-### Automated Screenshot Processing
-
-```python
-import os
-import time
-from pathlib import Path
-
-def process_screenshots_directory(screenshot_dir, agent):
-    """Process all new screenshots in a directory"""
-    screenshot_path = Path(screenshot_dir)
-    processed_file = screenshot_path / ".processed"
-    
-    # Load previously processed files
-    processed = set()
-    if processed_file.exists():
-        processed = set(processed_file.read_text().splitlines())
-    
-    # Find new screenshots
-    new_screenshots = []
-    for img_file in screenshot_path.glob("*.png"):
-        if str(img_file) not in processed:
-            new_screenshots.append(str(img_file))
-    
-    if new_screenshots:
-        # Process new screenshots
-        agent.send_message(
-            message=f"Processing {len(new_screenshots)} new screenshots",
-            image_uris=new_screenshots,
-            force_absorb_content=len(new_screenshots) > 10  # Force if many screenshots
-        )
-        
-        # Update processed list
-        processed.update(new_screenshots)
-        processed_file.write_text("\n".join(processed))
-
-# Use the function
-agent = AgentWrapper("./configs/mirix.yaml")
-process_screenshots_directory("/Users/username/Screenshots", agent)
-```
-
-### Scheduled Processing
-
-```python
-import schedule
-import time
-
-def daily_summary():
-    """Generate daily summary"""
-    agent = AgentWrapper("./configs/mirix.yaml")
-    summary = agent.send_message("Provide a summary of today's activities")
-    
-    # Save summary to file or send notification
-    with open(f"daily_summary_{time.strftime('%Y%m%d')}.txt", "w") as f:
-        f.write(summary)
-
-# Schedule daily summary
-schedule.every().day.at("18:00").do(daily_summary)
-
-# Keep the script running
-while True:
-    schedule.run_pending()
-    time.sleep(60)
-```
-
-## Best Practices
-
-### 1. Efficient Image Handling
-- Use local file paths instead of base64 encoding for `image_uris`
-- Batch multiple images when possible
-- Clean up temporary screenshots regularly
-
-### 2. Strategic Force Processing
-- Use `force_absorb_content=True` for important or time-sensitive information
-- Use `force_absorb_content=False` for routine activities to enable batch processing
-
-### 3. Structured Messaging
-- Provide context in your messages
-- Use descriptive messages that help with memory organization
-- Include relevant metadata when available
-
-### 4. Regular Maintenance
-- Create regular backups of your agent state
-- Monitor memory usage and performance
-- Clean up old or irrelevant memories periodically
+-->
+<!-- 
 
 ## Troubleshooting
 
@@ -449,14 +281,10 @@ while True:
     import psutil
     print(f"Memory usage: {psutil.virtual_memory().percent}%")
     print(f"CPU usage: {psutil.cpu_percent()}%")
-    ```
+    ``` -->
 
 ## What's Next?
 
-Learn about advanced memory management techniques:
+Learn about performance optimization and advanced topics:
 
-[**Memory Management →**](memory-management.md){ .md-button .md-button--primary }
-
-Or explore the API reference:
-
-[**Agent API →**](../api/agent-api.md){ .md-button } 
+[**Performance →**](../advanced/performance.md){ .md-button .md-button--primary }

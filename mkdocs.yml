@@ -64,9 +64,9 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 nav:
+  - Home: index.md
   - Getting Started:
-    - Overview: getting-started/overview.md
-    - Getting Started: getting-started/installation.md
+    - Installation & Getting Started: getting-started/installation.md
   - Architecture:
     - Multi-Agent System: architecture/multi-agent-system.md
     - Memory Components: architecture/memory-components.md
@@ -74,10 +74,6 @@ nav:
   - User Guide:
     - Desktop App: user-guide/desktop-app.md
     - Backend Usage: user-guide/backend-usage.md
-    - Memory Management: user-guide/memory-management.md
-  - API Reference:
-    - Agent API: api/agent-api.md
-    - Memory API: api/memory-api.md
   - Advanced:
     - Performance: advanced/performance.md
     - Security & Privacy: advanced/security-privacy.md
@@ -94,4 +90,4 @@ extra:
     - icon: fontawesome/solid/envelope
       link: mailto:yuw164@ucsd.edu
 
-copyright: Copyright &copy; 2024 MIRIX Team 
+copyright: Copyright &copy; 2025 MIRIX Team 

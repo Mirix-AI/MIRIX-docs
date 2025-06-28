@@ -1,173 +1,185 @@
 # Desktop App Guide
 
-The MIRIX Desktop App provides a user-friendly graphical interface for interacting with your personal assistant and managing your digital activities.
-
-!!! info "Coming Soon"
-    
-    The desktop application is currently under development. This guide will be updated as features become available.
+The MIRIX Desktop App provides a user-friendly graphical interface for interacting with your personal AI assistant and managing your digital memories. This comprehensive desktop application offers advanced features for chat interaction, screen monitoring, memory management, and data visualization.
 
 ## Overview
 
-The desktop app will offer:
+MIRIX Desktop is your central hub for AI-powered personal assistance, featuring:
 
-- **Real-time Activity Monitoring**: Visual dashboard of your current activities
-- **Memory Explorer**: Browse and search through your stored memories
-- **Chat Interface**: Natural language conversations with your assistant
-- **Privacy Controls**: Manage screenshot capture and data retention settings
-- **System Notifications**: Stay informed about important activities and insights
+- **Interactive Chat Interface** - Natural conversation with your AI assistant
+- **Screen Monitoring** - Let your assistant observe and understand your screen activity
+- **Advanced Settings** - Configure AI models, personas, and preferences
+- **Memory Visualization** - Explore and understand your stored memories
+- **Data Management** - Export and import your memory data
 
-## Expected Features
+## Chat Interface
 
-### Main Dashboard
+![Chat Interface](../assets/images/img0.png)
 
-```mermaid
-graph TB
-    A[Main Dashboard] --> B[Activity Monitor]
-    A --> C[Memory Browser]
-    A --> D[Chat Interface]
-    A --> E[Settings Panel]
-    
-    B --> F[Real-time Screenshots]
-    B --> G[Activity Timeline]
-    
-    C --> H[Search Interface]
-    C --> I[Memory Categories]
-    
-    D --> J[Conversation History]
-    D --> K[Quick Actions]
-    
-    E --> L[Privacy Settings]
-    E --> M[Performance Tuning]
-```
+The main chat window is where you interact with your MIRIX assistant. Features include:
 
-### Activity Monitoring
-- **Live Screenshot Feed**: See what MIRIX is capturing in real-time
-- **Activity Timeline**: Visual timeline of your digital activities
-- **Processing Status**: Monitor memory consolidation and agent activity
-- **Performance Metrics**: System resource usage and processing statistics
+- **Real-time Conversations** - Ask questions and get intelligent responses
+- **Context Awareness** - Your assistant remembers previous conversations
+- **Multi-turn Dialogue** - Engage in complex, ongoing discussions
+- **Helpful Responses** - Get assistance with tasks, questions, and planning
 
-### Memory Management
-- **Visual Memory Browser**: Explore your six memory components
-- **Advanced Search Interface**: Use all search methods with visual filters
-- **Memory Statistics**: See memory usage and organization
-- **Export/Import Tools**: Backup and restore your memories
+### Getting Started with Chat
 
-### Chat Interface
-- **Rich Text Conversations**: Natural language chat with formatting support
-- **Context Awareness**: See what memories are being accessed for responses
-- **Multi-modal Input**: Send text, images, and voice messages
-- **Conversation History**: Browse and search past conversations
+1. Launch the MIRIX Desktop App
+2. Click the **Chat** tab to open the conversation interface
+3. Type your message in the input field at the bottom
+4. Press Enter or click Send to interact with your assistant
 
-### Privacy & Security
-- **Screenshot Controls**: Enable/disable capture for specific applications
-- **Memory Retention Policies**: Set automatic cleanup rules
-- **Sensitivity Management**: Control access to sensitive information
-- **Activity Exclusions**: Exclude specific activities from tracking
+## Screen Monitoring
 
-## Current Workaround: Backend Usage
+![Screen Monitor](../assets/images/img1.png)
 
-While the desktop app is in development, you can use the backend directly for full functionality.
+The Screen Monitor feature allows your MIRIX assistant to observe your screen activity, providing contextual assistance based on what you're doing.
 
-### Python Interface
+### Features:
 
-```python
-from mirix.agent import AgentWrapper
+- **Real-time Screen Capture** - Continuous monitoring of your desktop
+- **Smart Analysis** - AI understanding of your current activities
+- **Contextual Assistance** - Get help based on what's on your screen
+- **Privacy Controls** - Full control over when monitoring is active
 
-# Initialize the agent
-agent = AgentWrapper("./configs/mirix.yaml")
+### How to Use Screen Monitoring:
 
-# Send information to process
-agent.send_message(
-    message="Working on documentation for MIRIX",
-    image_uris=["/path/to/screenshot.png"],
-    force_absorb_content=True
-)
+1. Navigate to the **Screenshots** tab
+2. Click **Start Monitor** to begin screen capture
+3. The status will show "monitoring" when active
+4. View captured screenshots and their timestamps
+5. Click **Stop Monitor** when you want to disable the feature
 
-# Chat with your assistant
-response = agent.send_message("What have I been working on today?")
-print(response)
-```
+**Privacy Note**: You have complete control over screen monitoring. The feature only captures screenshots when explicitly enabled and can be stopped at any time.
 
-### Command Line Interface
+## Settings & Configuration
 
-```bash
-# Start MIRIX in background mode
-python main.py --daemon
+![Settings](../assets/images/img2.png)
 
-# Send a message via CLI
-python -c "
-from mirix.agent import AgentWrapper
-agent = AgentWrapper('./configs/mirix.yaml')
-print(agent.send_message('What did I work on yesterday?'))
-"
-```
+Customize your MIRIX experience through the comprehensive Settings panel.
 
-## Development Status
+### Model Configuration
 
-### Planned Features
+**Chat Agent Model:**
 
-- [ ] **Desktop Application Framework**: Electron or native Python GUI
-- [ ] **Real-time Activity Dashboard**: Live monitoring interface
-- [ ] **Memory Browser**: Visual exploration of memories
-- [ ] **Chat Interface**: Rich conversation experience
-- [ ] **Settings Panel**: Configuration management
-- [ ] **System Tray Integration**: Background operation
-- [ ] **Notifications**: Smart alerts and insights
-- [ ] **Backup/Restore GUI**: Visual data management
+- **OpenAI Models** - GPT-4, GPT-3.5-turbo, and other OpenAI models
+- **Gemini Models** - Google's Gemini Pro and Flash models
+- Choose the model that best fits your needs and preferences
 
-### Timeline
+**Memory Manager Model:**
 
-!!! note "Development Roadmap"
-    
-    The desktop app is planned for release in Q2 2025. Follow our [GitHub repository](https://github.com/Mirix-AI/MIRIX) for development updates.
+- **Gemini Models Only** - Currently supports Gemini models for memory operations
+- Optimized for understanding and organizing your personal data
 
-## Contributing
+### Persona Customization
 
-Interested in helping build the desktop app? We welcome contributions:
+Configure your assistant's personality and behavior:
 
-- **UI/UX Design**: Help design the user interface
-- **Frontend Development**: Build the application interface
-- **Backend Integration**: Connect the GUI to the MIRIX backend
-- **Testing**: Help test and improve the user experience
+- **Template Selection** - Choose from predefined persona templates
+- **Custom Persona** - Write your own persona description
+- **Active Persona Display** - See your current assistant's personality in the "Agent's Active Persona (Core Memory)" section
+- **Update Core Memory** - Apply changes to your assistant's personality
 
-Contact us at `yuw164@ucsd.edu` or open an issue on GitHub to get involved.
+### Timezone Settings
 
-## Alternative Interfaces
+![Timezone Configuration](../assets/images/timezone.png)
 
-### Web Interface (Planned)
+Set your local timezone to help your assistant understand:
 
-A web-based interface is also planned, which will provide:
-- Browser-based access to MIRIX
-- Real-time updates via WebSocket
-- Mobile-responsive design
-- Cloud deployment options
+- **Time Context** - When events occur in your local time
+- **Activity Patterns** - Your daily routines and schedules  
+- **Temporal References** - Accurate interpretation of time-based queries
 
-### API Integration
+**To Configure Timezone:**
 
-For developers who want to integrate MIRIX into their own applications:
+1. Go to Settings → Preferences → Timezone
+2. Select your timezone from the dropdown menu
+3. Confirmation will appear when successfully set
 
-```python
-# Example API integration
-from mirix.api import MIRIXAPI
+## Memory Management & Visualization
 
-api = MIRIXAPI(config_path="./configs/mirix.yaml")
+![Memory Visualization](../assets/images/img3.png)
+![Memory Tree View](../assets/images/img4.png)
 
-# Get recent activities
-activities = api.get_activities(limit=10, time_range="today")
+MIRIX builds and maintains different types of memories about your activities and interactions. The memory management interface lets you explore and understand how your assistant perceives and organizes information about you.
 
-# Search memories
-results = api.search_memories("machine learning", limit=20)
+### Memory Types
 
-# Send new information
-api.absorb_content("Working on a new AI project", images=["screenshot.png"])
-```
+- **📚 Episodic** - Personal experiences and events from your life
+- **🧠 Semantic** - Facts and general knowledge you've discussed
+- **⚙️ Procedural** - Skills, procedures, and how-to knowledge
+- **📁 Resource** - Files, documents, and reference materials
+- **⭐ Core** - Fundamental personality and preference information
+- **🔐 Credentials** - Secure authentication and access information
+
+### Memory Views
+
+**List View:**
+
+- Browse memories chronologically
+- See memory details and timestamps
+- Search through your memory collection
+
+**Tree View:**
+
+- Visualize memory relationships and connections
+- Understand how concepts link together
+- Explore memory hierarchies and associations
+
+### Memory Search
+
+Use the search functionality to:
+
+- Find specific memories quickly
+- Filter by memory type or date
+- Locate relevant information across your personal knowledge base
+
+## Data Export & Import
+
+![Upload & Export](../assets/images/upload_and_export.png)
+
+MIRIX provides powerful options for managing your memory data.
+
+### Export Options
+
+**Excel Export:**
+
+- Export selected memory types to `.xlsx` format
+- Separate sheets for each memory type
+- Comprehensive data including timestamps and details
+- Choose export location on your system
+
+**Supported Export Formats:**
+
+- All memory types can be exported simultaneously
+- Individual memory type selection available
+- Structured data format for easy analysis
+
+### Import Options
+
+**Upload Memory Data:**
+
+- Import memories from external sources
+- Mock upload functionality for testing
+- Integrate data from other platforms or backups
+
+**Agent Memory Platform:**
+
+- Connect to MIRIX's blockchain-based memory platform
+- Secure, decentralized storage of your memories
+- Cross-device synchronization capabilities
+
+### How to Export Your Memories:
+
+1. Click **Existing Memory** tab
+2. Select **Upload & Export** button
+3. Choose which memory types to export (Episodic, Semantic, Procedural, Resource)
+4. Set your export file path or browse to select location
+5. Click **Export Memories** to generate your Excel file
 
 ## What's Next?
 
-While waiting for the desktop app, learn how to use MIRIX through the backend:
+Ready to dive deeper? Explore these advanced topics:
 
-[**Backend Usage →**](backend-usage.md){ .md-button .md-button--primary }
-
-Or explore advanced features:
-
-[**Memory Management →**](memory-management.md){ .md-button } 
+[**Backend Usage →**](backend-usage.md){ .md-button .md-button--primary } 

@@ -51,7 +51,6 @@ The built site will be in the `site/` directory.
 docs/
 ├── index.md                    # Homepage
 ├── getting-started/
-│   ├── overview.md            # What is MIRIX
 │   └── installation.md       # Installation and getting started guide
 ├── architecture/
 │   ├── multi-agent-system.md # Multi-agent architecture
@@ -59,11 +58,7 @@ docs/
 │   └── search-capabilities.md # Advanced search
 ├── user-guide/
 │   ├── desktop-app.md         # Desktop application (coming soon)
-│   ├── backend-usage.md       # Python backend usage
-│   └── memory-management.md   # Managing memories
-├── api/
-│   ├── agent-api.md           # Agent API reference
-│   └── memory-api.md          # Memory API reference
+│   └── backend-usage.md       # Python backend usage
 ├── advanced/
 │   ├── performance.md         # Performance optimization
 │   ├── security-privacy.md    # Security and privacy

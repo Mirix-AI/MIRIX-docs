@@ -164,7 +164,7 @@ Now that MIRIX is installed, you can start using it:
 3. **Enable screen monitoring** - Click the **"Screenshots"** tab on the right side of the app, then click **"Start Monitoring"** to begin screen capture
 4. **Let it learn** - Give MIRIX a few minutes to build your initial memory base from your screen activities
 5. **Ask questions** - Once monitoring is active, interact with MIRIX about your recent activities and documents
-6. **Explore features** - Check out the [User Guide](../user-guide/) for advanced usage
+6. **Explore features** - Check out the [User Guide](../user-guide/backend-usage.md) for advanced usage
 
 !!! success "You're Ready!"
     
@@ -182,7 +182,7 @@ Now that MIRIX is installed, you can start using it:
 - **[Architecture Overview](../architecture/multi-agent-system.md)** - Understand how MIRIX works
 - **[User Guide](../user-guide/backend-usage.md)** - Learn advanced usage patterns
 - **[Desktop App](../user-guide/desktop-app.md)** - Try the GUI interface
-- **[API Reference](../api/agent-api.md)** - Build custom integrations
+
 
 ## Troubleshooting
 

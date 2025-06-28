@@ -10,7 +10,7 @@ graph TB
         A[User Input] --> B[Meta Agent]
     end
     
-    subgraph "Memory Management Agents"
+    subgraph "Memory Managers"
         C[Core Memory Manager]
         D[Episodic Memory Manager]
         E[Semantic Memory Manager]
@@ -52,25 +52,21 @@ graph TB
 **Role**: Central coordinator and content analyzer
 
 **Responsibilities**:
+
 - Analyzes incoming user content (text, images, voice)
 - Determines which memory components need updates
-- Routes specific instructions to relevant Memory Managers
-- Orchestrates the overall information processing workflow
+- Routes the input content to relevant Memory Managers
 
 **Workflow**:
 ```python
 # Pseudo-code for Meta Agent processing
-def process_user_input(content):
-    analysis = analyze_content(content)
-    
-    if contains_personal_info(analysis):
-        route_to_core_memory_manager(analysis)
-    
-    if contains_activities(analysis):
-        route_to_episodic_memory_manager(analysis)
-    
-    if contains_knowledge(analysis):
-        route_to_semantic_memory_manager(analysis)
+def trigger_memory_update(self: "Agent", user_message: object, memory_types: List[str]) -> Optional[str]:
+    """
+    Choose which memory to update. This function will trigger another memory agent which is specifically in charge of handling the corresponding memory to update its memory. Trigger all necessary memory updates at once. 
+
+    Args:
+        memory_types (List[str]): The types of memory to update. It should be chosen from the following: "core", "episodic", "resource", "procedural", "knowledge_vault", "semantic". For instance, ['episodic', 'resource'].
+    """
     
     # ... and so on
 ```
@@ -81,25 +77,31 @@ def process_user_input(content):
 
 **Responsibilities**:
 - Handles user queries and conversations
-- Searches across all memory components using `search_memory()`
+- Searches across all memory components using `search_in_memory()`
 - Synthesizes retrieved information into contextual responses
 - Maintains conversation flow and context
 
 **Search Process**:
 ```python
-def respond_to_query(user_query):
-    # Search across all memory types
-    search_results = search_memory(
-        query=user_query,
-        search_across=['core', 'episodic', 'semantic', 
-                      'procedural', 'resource', 'vault']
-    )
+def search_in_memory(self: "Agent", memory_type: str, query: str, search_field: str, search_method: str, timezone_str: str) -> Optional[str]:
+    """
+    Choose which memory to search. All memory types support multiple search methods with different performance characteristics. Most of the time, you should use search over 'details' for episodic memory and semantic memory, 'content' for resource memory (but for resource memory, `embedding` is not supported for content field so you have to use other search methods), 'description' for procedural memory. This is because these fields have the richest information and is more likely to contain the keywords/query. You can always start from a thorough search over the whole memory by setting memory_type as 'all' and search_field as 'null', and then narrow down to specific fields and specific memories.
     
-    # Generate contextual response
-    return synthesize_response(search_results, user_query)
+    Args:
+        memory_type: The type of memory to search in. It should be chosen from the following: "episodic", "resource", "procedural", "knowledge_vault", "semantic", "all". Here "all" means searching in all the memories. 
+        query: The keywords/query used to search in the memory.        
+        search_field: The field to search in the memory. It should be chosen from the attributes of the corresponding memory. For "episodic" memory, it can be 'summary', 'details'; for "resource" memory, it can be 'summary', 'content'; for "procedural" memory, it can be 'summary', 'steps'; for "knowledge_vault", it can be 'secret_value', 'caption'; for semantic memory, it can be 'name', 'summary', 'details'. For "all", it should also be "null" as the system will search all memories with default fields. 
+        search_method: The method to search in the memory. Choose from:
+            - 'bm25': BM25 ranking-based full-text search (fast and effective for keyword-based searches)
+            - 'embedding': Vector similarity search using embeddings (most powerful, good for conceptual matches)
+            - 'string_match': Exact string match, can be used when you need to locate or compare text that must match exactly, character for character.
+    
+    Returns:
+        str: Query result string
+    """
 ```
 
-## Memory Management Agents
+## Memory Managers
 
 Each memory component has a dedicated agent that specializes in managing that specific type of information.
 
@@ -108,6 +110,7 @@ Each memory component has a dedicated agent that specializes in managing that sp
 **Manages**: Personal preferences, user identity, essential facts
 
 **Processing Logic**:
+
 - Identifies user preferences and personality traits
 - Updates persona and human understanding blocks
 - Maintains consistency across conversations
@@ -118,16 +121,17 @@ Each memory component has a dedicated agent that specializes in managing that sp
 **Manages**: Time-based activities and events
 
 **Processing Logic**:
+
 - Captures temporal context and user activities
 - Creates event summaries with timestamps
 - Tracks what the user has done and is currently doing
-- Links activities to specific time periods
 
 ### :material-brain: Semantic Memory Manager
 
-**Manages**: General knowledge and concepts
+**Manages**: General knowledge and concepts about people and the world
 
 **Processing Logic**:
+
 - Extracts factual information independent of time
 - Stores concepts, definitions, and relationships
 - Maintains knowledge about people, places, and things
@@ -138,30 +142,30 @@ Each memory component has a dedicated agent that specializes in managing that sp
 **Manages**: Workflows and step-by-step processes
 
 **Processing Logic**:
+
 - Identifies process patterns and workflows
 - Stores step-by-step instructions
 - Recognizes recurring task patterns
-- Optimizes workflow documentation
 
 ### :material-file-document: Resource Memory Manager
 
 **Manages**: Documents, files, and content
 
 **Processing Logic**:
+
 - Processes document content and context
-- Maintains file relationships and project context
 - Stores full or partial content as needed
-- Tracks document usage patterns
 
 ### :material-key: Knowledge Vault Manager
 
 **Manages**: Structured data and credentials
 
 **Processing Logic**:
+
 - Identifies sensitive information (passwords, API keys)
-- Categorizes data by sensitivity level
+- Categorizes data by sensitivity level (`sensitivity` as `[low, medium, high]`)
 - Maintains secure storage practices
-- Prevents accidental exposure of sensitive data
+- Prevents accidental exposure of `high` sensitivity data
 
 ## Workflow Coordination
 
@@ -187,14 +191,15 @@ sequenceDiagram
 ### 2. Memory Consolidation Process
 
 **Batch Processing**:
+
 - Agents accumulate information until reaching threshold
-- Trigger batch processing for efficiency
+- Trigger parallel processing for efficiency
 - Single function call per agent for comprehensive updates
 
 **Smart Routing**:
-- Meta Agent uses sophisticated logic to determine distribution
-- Agents can skip updates if no relevant information detected
-- Prevents unnecessary processing and maintains efficiency
+
+- Meta Agent analyze the content to determine distribution, preventing unnecessary processing and maintaining efficiency
+- (Double Check) The specific memory manager can skip updates if no relevant information detected
 
 ### 3. Conversational Retrieval System
 
@@ -202,7 +207,7 @@ sequenceDiagram
 sequenceDiagram
     participant U as User Query
     participant C as Chat Agent
-    participant S as search_memory()
+    participant S as search_in_memory()
     participant DB as Memory Base
     participant R as Response
     
@@ -218,46 +223,10 @@ sequenceDiagram
 
 ## Performance Optimizations
 
-### Intelligent Routing Logic
-
-The Meta Agent uses sophisticated analysis to route information efficiently:
-
-```python
-def route_information(content_analysis):
-    routing_decisions = []
-    
-    # User preferences and personality traits
-    if has_personal_preferences(content_analysis):
-        routing_decisions.append(('core_memory', extract_preferences(content_analysis)))
-    
-    # Activities and temporal events
-    if has_temporal_activities(content_analysis):
-        routing_decisions.append(('episodic_memory', extract_activities(content_analysis)))
-    
-    # General knowledge and concepts
-    if has_knowledge_facts(content_analysis):
-        routing_decisions.append(('semantic_memory', extract_knowledge(content_analysis)))
-    
-    # Step-by-step processes and guides
-    if has_procedural_info(content_analysis):
-        routing_decisions.append(('procedural_memory', extract_procedures(content_analysis)))
-    
-    # Documents and file contents
-    if has_document_content(content_analysis):
-        routing_decisions.append(('resource_memory', extract_resources(content_analysis)))
-    
-    # Structured data and credentials
-    if has_structured_data(content_analysis):
-        routing_decisions.append(('knowledge_vault', extract_structured_data(content_analysis)))
-    
-    return routing_decisions
-```
-
 ### Concurrent Processing
 
 - Memory Managers work independently but share the same memory base
 - Parallel processing of different memory types
-- Efficient resource utilization through smart scheduling
 
 ### Single Function Call Architecture
 
@@ -278,40 +247,6 @@ def route_information(content_analysis):
 - Shared memory base ensures consistency across agents
 - Transaction-based updates prevent data corruption
 - Automatic rollback on processing failures
-
-## Configuration and Customization
-
-### Agent Behavior Tuning
-
-```yaml
-# mirix.yaml configuration
-agents:
-  meta_agent:
-    analysis_depth: "detailed"
-    routing_threshold: 0.7
-  
-  memory_managers:
-    batch_size: 20
-    processing_interval: 300  # seconds
-  
-  chat_agent:
-    search_method: "bm25"
-    max_results: 50
-```
-
-### Memory Type Priorities
-
-Configure which memory types should be prioritized for different content types:
-
-```yaml
-routing_priorities:
-  personal_info: ["core_memory", "knowledge_vault"]
-  activities: ["episodic_memory", "procedural_memory"]
-  documents: ["resource_memory", "semantic_memory"]
-  knowledge: ["semantic_memory", "procedural_memory"]
-```
-
-This multi-agent architecture ensures that MIRIX can efficiently process and organize your digital activities while maintaining high performance and accuracy.
 
 ## What's Next?
 

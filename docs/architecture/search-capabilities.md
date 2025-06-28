@@ -1,72 +1,179 @@
 # Search Capabilities
 
-MIRIX provides multiple sophisticated search methods for retrieving information from its memory components, with **PostgreSQL-native full-text search** as the primary implementation for optimal performance and scalability.
+MIRIX provides multiple sophisticated search methods for retrieving information from its **5 memory components** (Procedural, Knowledge Vault, Episodic, Semantic, Resource), with **PostgreSQL-native full-text search** as the primary implementation for optimal performance and scalability.
 
 ## Search Methods Overview
 
-MIRIX supports four distinct search methods, each optimized for different use cases:
+MIRIX supports three distinct search methods, each optimized for different use cases:
 
 | Method | Description | Best For | Performance |
 |--------|-------------|----------|-------------|
 | `bm25` | **RECOMMENDED** - PostgreSQL native full-text search | Most queries, production use | Excellent |
 | `embedding` | Vector similarity search using embeddings | Semantic similarity, conceptual queries | Good |
 | `string_match` | Simple string containment search | Exact text matching | Fast |
-| `fuzzy_match` | Fuzzy string matching (legacy) | Typo tolerance | Moderate |
 
 ## PostgreSQL Native BM25 Implementation
 
 ### Architecture
 
-All memory managers (Episodic, Semantic, Procedural, Resource, Knowledge Vault) use PostgreSQL's native `ts_rank_cd` function for BM25-like scoring directly in the database.
+All 5 memory managers (Procedural, Knowledge Vault, Episodic, Semantic, Resource) use PostgreSQL's native `ts_rank_cd` function for BM25-like scoring directly in the database.
 
 ```mermaid
 graph TB
-    A[Search Query] --> B[Query Preprocessing]
-    B --> C[PostgreSQL ts_query]
-    C --> D[GIN Index Lookup]
-    D --> E[ts_rank_cd Scoring]
-    E --> F[Field Weighting]
-    F --> G[Document Length Normalization]
-    G --> H[Ranked Results]
+    A[Search Query] --> B[Text Cleaning & Tokenization]
+    B --> C[TSQuery Generation with Prefix Matching]
+    C --> D[AND Query Attempt]
+    D --> E{Sufficient Results?}
+    E -->|Yes| F[Return AND Results]
+    E -->|No| G[OR Query Fallback]
+    G --> H[GIN Index Lookup]
+    H --> I[ts_rank_cd Scoring]
+    I --> J[Memory-Type-Specific Field Processing]
+    J --> K[Ranked Results]
 ```
 
 ### Key Technical Features
 
-#### GIN Index Utilization
-- Leverages existing GIN indexes on tsvector expressions
-- Lightning-fast searches even on large datasets
-- Automatic index maintenance by PostgreSQL
+#### Smart Query Preprocessing
+- **Text Cleaning**: Removes punctuation, normalizes whitespace, converts to lowercase
+- **Tokenization**: Splits into meaningful tokens, filters out very short words
+- **TSQuery Creation**: Generates both exact and prefix matching queries for better recall
+- **Special Character Escaping**: Safely handles PostgreSQL tsquery special characters
 
-#### Advanced Query Logic
+```python
+# Example preprocessing flow
+"machine-learning AI!" → "machine learning ai" → ["machine", "learning", "ai"]
+→ "(machine | machine:*) & (learning | learning:*) & (ai | ai:*)"
+```
+
+#### Advanced Query Logic with Fallback
 ```sql
--- Smart AND → OR fallback for optimal precision and recall
-SELECT *, ts_rank_cd(search_vector, query, 32) as rank
+-- Step 1: Try precise AND query for high precision
+SELECT *, ts_rank_cd(tsvector_field, to_tsquery('english', :and_query), 32) as rank
 FROM memory_table 
-WHERE search_vector @@ plainto_tsquery('machine & learning')
-ORDER BY rank DESC
+WHERE tsvector_field @@ to_tsquery('english', :and_query)
+ORDER BY rank DESC, created_at DESC
 LIMIT 50;
 
--- If no results, fallback to OR query
-SELECT *, ts_rank_cd(search_vector, query, 32) as rank  
+-- Step 2: If insufficient results, fallback to OR query for better recall
+SELECT *, ts_rank_cd(tsvector_field, to_tsquery('english', :or_query), 32) as rank  
 FROM memory_table
-WHERE search_vector @@ plainto_tsquery('machine | learning')
-ORDER BY rank DESC
+WHERE tsvector_field @@ to_tsquery('english', :or_query)
+ORDER BY rank DESC, created_at DESC
+LIMIT 50;
+
+-- Step 3: Ultimate fallback to simple ILIKE if tsquery fails
+SELECT * FROM memory_table
+WHERE lower(field) LIKE lower('%query%')
+ORDER BY created_at DESC
 LIMIT 50;
 ```
 
-#### Field Weighting System
-PostgreSQL's A, B, C, D priority weighting system:
-- **A**: Highest priority (titles, names)
-- **B**: High priority (summaries, descriptions)  
-- **C**: Medium priority (detailed content)
-- **D**: Low priority (metadata, tags)
+#### Memory-Type-Specific Field Implementation
+Each memory type has different searchable fields and special handling:
+
+**Procedural Memory Fields:**
+
+- `summary`: Process description - `to_tsvector('english', coalesce(summary, ''))`
+- `steps`: JSON array with special processing - `to_tsvector('english', coalesce(regexp_replace(steps::text, '[\"\\[\\],]', ' ', 'g'), ''))`
+- `entry_type`: Type of procedure - `to_tsvector('english', coalesce(entry_type, ''))`
+
+**Knowledge Vault Fields:**
+
+- `caption`: Description of stored item - `to_tsvector('english', coalesce(caption, ''))`
+- `secret_value`: Actual stored value - `to_tsvector('english', coalesce(secret_value, ''))`
+- Additional: `entry_type`, `source`, `sensitivity` (with filtering support)
+
+**Episodic Memory Fields:**
+
+- `summary`: Brief event description - `to_tsvector('english', coalesce(summary, ''))`
+- `details`: Comprehensive event information - `to_tsvector('english', coalesce(details, ''))`
+- `actor`: Who performed the action - `to_tsvector('english', coalesce(actor, ''))`
+- `event_type`: Category of event - `to_tsvector('english', coalesce(event_type, ''))`
+
+**Semantic Memory Fields:**
+
+- `name`: Concept or object name - `to_tsvector('english', coalesce(name, ''))`
+- `summary`: Concise explanation - `to_tsvector('english', coalesce(summary, ''))`
+- `details`: Extended description - `to_tsvector('english', coalesce(details, ''))`
+- `source`: Knowledge origin - `to_tsvector('english', coalesce(source, ''))`
+
+**Resource Memory Fields:**
+
+- `title`: Resource name - `to_tsvector('english', coalesce(title, ''))`
+- `summary`: Brief description - `to_tsvector('english', coalesce(summary, ''))`
+- `content`: Full document content - `to_tsvector('english', coalesce(content, ''))`
+- `resource_type`: File format type - `to_tsvector('english', coalesce(resource_type, ''))`
+
+**Special JSON Array Handling (Procedural Memory Only):**
+```sql
+-- Transforms: ["step 1", "step 2", "step 3"]
+-- Into: "step 1 step 2 step 3" for full-text search
+regexp_replace(steps::text, '[\"\\[\\],]', ' ', 'g')
+```
+
+#### Field Weighting System (Multi-Field Search Only)
+When no specific `search_field` is provided, each memory type uses different field weighting:
+
+**Procedural Memory:**
+```sql
+setweight(to_tsvector('english', coalesce(summary, '')), 'A') ||
+setweight(to_tsvector('english', coalesce(regexp_replace(steps::text, '[\"\\[\\],]', ' ', 'g'), '')), 'B') ||
+setweight(to_tsvector('english', coalesce(entry_type, '')), 'C')
+```
+
+**Knowledge Vault (2-tier weighting):**
+```sql
+setweight(to_tsvector('english', coalesce(caption, '')), 'A') ||
+setweight(to_tsvector('english', coalesce(secret_value, '')), 'B')
+```
+
+**Episodic Memory:**
+```sql
+setweight(to_tsvector('english', coalesce(summary, '')), 'A') ||
+setweight(to_tsvector('english', coalesce(details, '')), 'B') ||
+setweight(to_tsvector('english', coalesce(actor, '')), 'C') ||
+setweight(to_tsvector('english', coalesce(event_type, '')), 'D')
+```
+
+**Semantic Memory:**
+```sql
+setweight(to_tsvector('english', coalesce(name, '')), 'A') ||
+setweight(to_tsvector('english', coalesce(summary, '')), 'B') ||
+setweight(to_tsvector('english', coalesce(details, '')), 'C') ||
+setweight(to_tsvector('english', coalesce(source, '')), 'D')
+```
+
+**Resource Memory:**
+```sql
+setweight(to_tsvector('english', coalesce(title, '')), 'A') ||
+setweight(to_tsvector('english', coalesce(summary, '')), 'B') ||
+setweight(to_tsvector('english', coalesce(content, '')), 'C') ||
+setweight(to_tsvector('english', coalesce(resource_type, '')), 'D')
+```
+
+**Note**: Field weighting is only applied during multi-field searches. Single-field searches directly query the specified field without weighting.
+
+#### Special Features
+
+**Knowledge Vault Sensitivity Filtering:**
+Knowledge Vault has an additional `sensitivity` parameter for security-based filtering:
+```python
+# Filter by sensitivity levels
+results = knowledge_vault_manager.list_knowledge(
+    query="password",
+    sensitivity=["low", "medium"]  # Exclude "high" sensitivity items
+)
+```
 
 #### Document Length Normalization
-Uses `ts_rank_cd` with normalization parameter 32 for optimal scoring:
+Uses `ts_rank_cd` with normalization parameter 32 for optimal BM25-like scoring:
 ```sql
 ts_rank_cd(search_vector, query, 32)
--- 32 = normalize by document length + logarithmic normalization
+-- 32 = normalize by document length + use logarithmic normalization + unique word count
 ```
+
+
 
 ## Performance Optimizations
 
@@ -75,91 +182,39 @@ ts_rank_cd(search_vector, query, 32)
 - **Database-Level Processing**: All ranking and filtering done at the PostgreSQL level
 - **Scalable Architecture**: Performance scales with your PostgreSQL setup
 
-### Query Optimization
-
-#### Smart Query Strategy
-```python
-def search_with_fallback(query, limit=50):
-    # 1. Try precise AND query first
-    and_results = execute_sql(f"""
-        SELECT * FROM memory_table 
-        WHERE search_vector @@ plainto_tsquery('{" & ".join(query.split())}')
-        ORDER BY ts_rank_cd(search_vector, query, 32) DESC
-        LIMIT {limit}
-    """)
-    
-    if len(and_results) >= limit * 0.3:  # Good results
-        return and_results
-    
-    # 2. Fall back to broader OR query
-    or_results = execute_sql(f"""
-        SELECT * FROM memory_table
-        WHERE search_vector @@ plainto_tsquery('{" | ".join(query.split())}') 
-        ORDER BY ts_rank_cd(search_vector, query, 32) DESC
-        LIMIT {limit}
-    """)
-    
-    return or_results
-```
-
-#### Prefix Matching
-Supports partial word matching with `:*` operators:
-```sql
-SELECT * FROM memory_table
-WHERE search_vector @@ to_tsquery('machin:* & learn:*')
-ORDER BY ts_rank_cd(search_vector, query, 32) DESC;
-```
-
-#### Field-Specific Search
-Can target specific fields or search across all fields with weighting:
-```python
-# Search specific field
-results = memory_manager.list_items(
-    query="neural networks",
-    search_field="summary",
-    search_method="bm25"
-)
-
-# Search all fields with weighting
-results = memory_manager.list_items(
-    query="neural networks", 
-    search_method="bm25"  # Uses pre-configured field weights
-)
-```
-
 ## Search Field Specifications
 
-Each memory type supports field-specific searches:
+Each of the 5 memory types supports field-specific searches:
 
-### Episodic Memory
+### Procedural Memory (Workflows & Procedures)
+- `summary`: Process description
+- `steps`: Detailed instructions (JSON array with special processing)
+- `entry_type`: Type of procedure (workflow/guide/script)
+
+### Knowledge Vault (Sensitive Information)
+- `caption`: Description of stored item
+- `secret_value`: Actual stored value (credentials, tokens, etc.)
+- `entry_type`: Type of data (credential/bookmark/contact)
+- `source`: Data origin
+- `sensitivity`: Security classification (low/medium/high) - **supports filtering**
+
+### Episodic Memory (Events & Activities)
 - `summary`: Brief event description
 - `details`: Comprehensive event information  
 - `actor`: Who performed the action (user/assistant)
 - `event_type`: Category of event
 
-### Semantic Memory
+### Semantic Memory (Concepts & Knowledge)
 - `name`: Concept or object name
 - `summary`: Concise explanation
 - `details`: Extended description
 - `source`: Knowledge origin
 
-### Procedural Memory
-- `summary`: Process description
-- `steps`: Detailed instructions
-- `entry_type`: Type of procedure (workflow/guide/script)
-
-### Resource Memory
+### Resource Memory (Documents & Files)
 - `title`: Resource name
 - `summary`: Brief description with context
 - `content`: Full document content
-- `resource_type`: File format type
-
-### Knowledge Vault  
-- `caption`: Description of stored item
-- `source`: Data origin
-- `entry_type`: Type of data (credential/bookmark/contact)
-- `secret_value`: Actual stored value
-- `sensitivity`: Security classification
+- `resource_type`: File format type (doc/markdown/pdf/etc.)
 
 ## Usage Examples
 
@@ -173,154 +228,87 @@ agent = AgentWrapper("./configs/mirix.yaml")
 results = agent.search_memory("machine learning algorithms")
 ```
 
-### Advanced Search Options
+### Memory-Type-Specific Search Examples
 ```python
-# PostgreSQL BM25 search (recommended)
-results = memory_manager.list_items(
+# Procedural Memory - Find workflows
+results = procedural_memory_manager.list_procedures(
     agent_state=agent_state,
-    query="machine learning algorithms",
+    query="deployment process",
     search_method="bm25",
-    limit=50
-)
-
-# Field-specific search
-results = memory_manager.list_items(
-    agent_state=agent_state,
-    query="neural networks",
     search_field="summary",
-    search_method="bm25", 
     limit=20
 )
 
-# Vector similarity search
-results = memory_manager.list_items(
+# Knowledge Vault - Find credentials with sensitivity filtering
+results = knowledge_vault_manager.list_knowledge(
     agent_state=agent_state,
-    query="deep learning concepts",
+    query="database password",
+    search_method="bm25",
+    sensitivity=["low", "medium"],  # Exclude high sensitivity
+    limit=10
+)
+
+# Episodic Memory - Find recent activities
+results = episodic_memory_manager.list_episodic_memory(
+    agent_state=agent_state,
+    query="code review",
+    search_method="bm25",
+    search_field="details",
+    limit=15
+)
+
+# Semantic Memory - Find concepts
+results = semantic_memory_manager.list_semantic_items(
+    agent_state=agent_state,
+    query="machine learning",
     search_method="embedding",
+    search_field="name",
+    limit=25
+)
+
+# Resource Memory - Find documents
+results = resource_memory_manager.list_resources(
+    agent_state=agent_state,
+    query="API documentation",
+    search_method="bm25",
+    search_field="content",
     limit=30
 )
 ```
 
-### Multi-Memory Search
-```python
-# Search across specific memory types
-results = agent.search_memory(
-    query="project documentation",
-    memory_types=["resource", "procedural", "semantic"],
-    limit=25
-)
-
-# Search with time constraints (episodic memory)
-results = agent.search_memory(
-    query="yesterday's meetings",
-    memory_types=["episodic"],
-    time_range="last_24_hours"
-)
-```
-
-## Performance Benchmarks
-
-### PostgreSQL vs In-Memory Processing
-
-| Dataset Size | PostgreSQL BM25 | In-Memory BM25 | Speedup |
-|--------------|-----------------|----------------|---------|
-| 1,000 entries | 2ms | 120ms | 60x |
-| 10,000 entries | 5ms | 1,200ms | 240x |
-| 100,000 entries | 15ms | 12,000ms | 800x |
-
-### Memory Usage Comparison
-
-| Method | Memory Usage | Scalability |
-|--------|--------------|-------------|
-| PostgreSQL BM25 | ~50MB baseline | Linear |
-| In-Memory BM25 | ~500MB per 10k docs | Exponential |
-| Vector Search | ~200MB per 10k docs | Linear |
-
-### Response Time Analysis
-
-```mermaid
-xychart-beta
-    title "Search Response Time by Method"
-    x-axis ["1K docs", "10K docs", "100K docs", "1M docs"]
-    y-axis "Response Time (ms)" 0 --> 1000
-    bar [2, 5, 15, 45]
-    bar [120, 1200, 12000, 120000]
-```
-
-## Search Quality Optimization
-
-### Query Preprocessing
-
-```python
-def preprocess_query(query):
-    # Remove stop words
-    query = remove_stopwords(query)
-    
-    # Handle special characters
-    query = escape_special_chars(query)
-    
-    # Expand abbreviations
-    query = expand_abbreviations(query)
-    
-    # Add context from recent queries
-    query = add_search_context(query)
-    
-    return query
-```
-
-### Relevance Scoring
-
-The BM25 algorithm considers:
-- **Term Frequency**: How often terms appear in documents
-- **Inverse Document Frequency**: Rarity of terms across corpus
-- **Document Length**: Normalization for document size
-- **Field Weights**: Importance of different fields
-
-### Result Ranking Factors
-
-1. **Exact Match Bonus**: Perfect phrase matches get higher scores
-2. **Recency Boost**: Recent activities weighted higher in episodic memory
-3. **User Preference**: Frequently accessed content ranked higher
-4. **Context Relevance**: Results matching current conversation context
-
 ## Advanced Features
 
-### Autocomplete and Suggestions
+### Special Memory-Type Features
 
+**Knowledge Vault Sensitivity Filtering:**
 ```python
-# Get search suggestions
-suggestions = agent.get_search_suggestions("mach")
-# Returns: ["machine learning", "machine vision", "macbook setup"]
-
-# Autocomplete queries
-completions = agent.autocomplete_search("machine lear")
-# Returns: ["machine learning", "machine learning algorithms", "machine learning projects"]
-```
-
-### Search Analytics
-
-```python
-# Track search performance
-analytics = agent.get_search_analytics()
-print(f"Average response time: {analytics['avg_response_time']}ms")
-print(f"Cache hit rate: {analytics['cache_hit_rate']}%")
-print(f"Most common queries: {analytics['top_queries']}")
-```
-
-### Custom Search Filters
-
-```python
-# Search with custom filters
-results = agent.search_memory(
-    query="project documentation",
-    filters={
-        "memory_type": ["resource", "procedural"],
-        "date_range": ("2024-01-01", "2024-12-31"),
-        "sensitivity": ["low", "medium"],
-        "file_type": ["markdown", "pdf"]
-    }
+# Filter by sensitivity levels for security
+results = knowledge_vault_manager.list_knowledge(
+    query="database credentials",
+    sensitivity=["low", "medium"]  # Exclude high sensitivity items
 )
 ```
+
+**Episodic Memory Time-Based Search:**
+```python
+# Search within specific time ranges
+results = episodic_memory_manager.list_episodic_memory_around_timestamp(
+    agent_state=agent_state,
+    start_time=yesterday,
+    end_time=today
+)
+```
+
+**Procedural Memory JSON Array Processing:**
+```python
+# Search within step-by-step instructions
+results = procedural_memory_manager.list_procedures(
+    query="git deployment",
+    search_field="steps",  # Searches within JSON array of steps
+    search_method="bm25"
+)
+```
+<!-- 
 
 ## Integration with Chat Agent
 
@@ -335,7 +323,6 @@ The Chat Agent automatically enhances queries with context:
 # User asks: "Show me the API docs"
 # Chat Agent enhances to: "API documentation files resources programming"
 ```
-
 ### Multi-Turn Conversations  
 
 ```python
@@ -346,66 +333,8 @@ search_context = ["machine learning", "AI", "algorithms"]
 enhanced_query = "deep learning " + " ".join(search_context)
 # Searches for: "deep learning machine learning AI algorithms"
 ```
+-->
 
-## Troubleshooting
-
-### Common Issues
-
-??? failure "Slow search performance"
-    
-    1. Check GIN indexes are properly created:
-    ```sql
-    \d+ your_table_name
-    -- Look for GIN indexes on tsvector columns
-    ```
-    
-    2. Update table statistics:
-    ```sql
-    ANALYZE your_table_name;
-    ```
-    
-    3. Consider vacuuming the database:
-    ```sql
-    VACUUM ANALYZE your_table_name;
-    ```
-
-??? failure "Poor search results"
-    
-    1. Verify search vectors are up to date
-    2. Check query preprocessing
-    3. Adjust field weights in configuration
-    4. Try different search methods for comparison
-
-??? failure "Memory usage issues"
-    
-    1. Ensure using PostgreSQL BM25 (not in-memory)
-    2. Optimize query limits
-    3. Use field-specific searches when possible
-    4. Consider result caching
-
-### Performance Tuning
-
-```yaml
-# mirix.yaml search configuration
-search:
-  default_method: "bm25"
-  default_limit: 50
-  
-  bm25:
-    normalization: 32
-    field_weights:
-      title: 1.0
-      summary: 0.8
-      details: 0.6
-      content: 0.4
-  
-  caching:
-    enabled: true
-    cache_size: 1000
-    ttl: 3600  # 1 hour
-```
-
-This powerful search system ensures that you can quickly and accurately find any information stored in your MIRIX memory, making your digital assistant truly intelligent and responsive.
 
 ## What's Next?
 

@@ -351,7 +351,7 @@ print(result['message'])  # "Agent state saved successfully..."
 **Restoring from Backups:**
 ```python
 # Method 1: Restore during agent initialization (recommended)
-agent = AgentWrapper("./configs/mirix.yaml", load_from="./my_backup")
+agent = AgentWrapper("./configs/mirix.yaml", "./my_backup")
 
 # Method 2: Load backup after agent creation
 agent = AgentWrapper("./configs/mirix.yaml")
