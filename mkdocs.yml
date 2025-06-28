@@ -1,25 +1,26 @@
-site_name: Mirix Documentation
+site_name: MIRIX Documentation
 site_description: Multi-agent personal assistant for intelligent screen activity tracking
-site_author: Mirix Team
+site_author: MIRIX Team
 site_url: https://mirix-ai.github.io/MIRIX-docs/
 
-repo_name: Mirix-AI/MIRIX-docs
-repo_url: https://github.com/Mirix-AI/MIRIX-docs
+repo_name: Mirix-AI/MIRIX
+repo_url: https://github.com/Mirix-AI/MIRIX
 edit_uri: edit/main/docs/
 
 theme:
   name: material
+  logo: assets/images/logo.png
   palette:
     # Palette toggle for light mode
     - scheme: default
-      primary: blue
+      primary: indigo
       accent: cyan
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     # Palette toggle for dark mode
     - scheme: slate
-      primary: blue
+      primary: indigo
       accent: cyan
       toggle:
         icon: material/brightness-4
@@ -63,7 +64,6 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 nav:
-  - Home: index.md
   - Getting Started:
     - Overview: getting-started/overview.md
     - Installation: getting-started/installation.md
@@ -85,11 +85,14 @@ nav:
     - Backup & Restore: advanced/backup-restore.md
   - Contributing: contributing.md
 
+extra_css:
+  - assets/custom.css
+
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/Mirix-AI/Mirix
+      link: https://github.com/Mirix-AI/MIRIX
     - icon: fontawesome/solid/envelope
       link: mailto:yuw164@ucsd.edu
 
-copyright: Copyright &copy; 2024 Mirix Team 
+copyright: Copyright &copy; 2024 MIRIX Team 

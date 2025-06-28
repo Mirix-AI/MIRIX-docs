@@ -1,6 +1,6 @@
-# Contributing to Mirix
+# Contributing to MIRIX
 
-Thank you for your interest in contributing to Mirix! This guide will help you get started with contributing to our multi-agent personal assistant project.
+Thank you for your interest in contributing to MIRIX! This guide will help you get started with contributing to our multi-agent personal assistant project.
 
 ## 🚀 Quick Start for Contributors
 
@@ -8,8 +8,8 @@ Thank you for your interest in contributing to Mirix! This guide will help you g
 
 1. **Fork and Clone**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/Mirix.git
-   cd Mirix
+   git clone https://github.com/YOUR_USERNAME/MIRIX.git
+   cd MIRIX
    ```
 
 2. **Set up Development Environment**
@@ -248,7 +248,7 @@ What should happen
 **Environment**
 - OS: [e.g., macOS 14.0]
 - Python: [e.g., 3.11.5]
-- Mirix Version: [e.g., 1.2.0]
+- MIRIX Version: [e.g., 1.2.0]
 - Database: [PostgreSQL 17 / SQLite]
 
 **Additional Context**
@@ -259,7 +259,7 @@ Logs, screenshots, etc.
 
 ### Proposal Process
 
-1. **Check Roadmap**: Review our [project roadmap](https://github.com/Mirix-AI/Mirix/projects)
+1. **Check Roadmap**: Review our [project roadmap](https://github.com/Mirix-AI/MIRIX/projects)
 2. **Open Discussion**: Create a GitHub Discussion
 3. **RFC Process**: For major features, write an RFC
 4. **Implementation**: After approval, implement the feature
@@ -342,4 +342,4 @@ Contributors are recognized in:
 - CONTRIBUTORS.md file
 - Special mentions for significant contributions
 
-Thank you for helping make Mirix better! 🚀 
+Thank you for helping make MIRIX better! 🚀 

@@ -1,10 +1,10 @@
 # Agent API Reference
 
-Complete API reference for the Mirix `AgentWrapper` class and related functionality.
+Complete API reference for the MIRIX `AgentWrapper` class and related functionality.
 
 ## AgentWrapper Class
 
-The main interface for interacting with Mirix agents.
+The main interface for interacting with MIRIX agents.
 
 ### Constructor
 
@@ -12,7 +12,7 @@ The main interface for interacting with Mirix agents.
 AgentWrapper(config_path: str, load_from: str = None)
 ```
 
-Initialize a new Mirix agent.
+Initialize a new MIRIX agent.
 
 **Parameters:**
 - `config_path` (str): Path to the configuration YAML file
@@ -271,18 +271,18 @@ message = [
 
 ```python
 from mirix.exceptions import (
-    MirixConfigError,
-    MirixDatabaseError,
-    MirixBackupError,
-    MirixSearchError
+    MIRIXConfigError,
+    MIRIXDatabaseError,
+    MIRIXBackupError,
+    MIRIXSearchError
 )
 
 try:
     agent = AgentWrapper("./configs/mirix.yaml")
     response = agent.send_message("Hello")
-except MirixConfigError as e:
+except MIRIXConfigError as e:
     print(f"Configuration error: {e}")
-except MirixDatabaseError as e:
+except MIRIXDatabaseError as e:
     print(f"Database error: {e}")
 except Exception as e:
     print(f"Unexpected error: {e}")

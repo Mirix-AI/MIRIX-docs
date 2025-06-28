@@ -1,6 +1,6 @@
 # Memory Components
 
-Mirix organizes information into six distinct memory components, each designed to handle specific types of data and provide optimal retrieval performance.
+MIRIX organizes information into six distinct memory components, each designed to handle specific types of data and provide optimal retrieval performance.
 
 ## Memory Architecture Overview
 
@@ -56,7 +56,7 @@ Line 4: User enjoys reading sci-fi novels
 
 ```
 === PERSONA ===
-Line 1: I am Mirix, a helpful AI assistant specializing in memory management
+Line 1: I am MIRIX, a helpful AI assistant specializing in memory management
 Line 2: I track user activities and provide context-aware assistance
 Line 3: I maintain detailed memories of user interactions and preferences
 
@@ -317,7 +317,7 @@ Each vault entry contains:
     "source": "user_provided",
     "sensitivity": "low",
     "secret_value": "https://docs.mirix.ai/",
-    "caption": "Mirix documentation website"
+    "caption": "MIRIX documentation website"
   },
   {
     "entry_type": "contact_info",
@@ -399,6 +399,6 @@ results = search_memory(
 
 ## What's Next?
 
-Learn about Mirix's advanced search capabilities:
+Learn about MIRIX's advanced search capabilities:
 
 [**Search Capabilities →**](search-capabilities.md){ .md-button .md-button--primary } 

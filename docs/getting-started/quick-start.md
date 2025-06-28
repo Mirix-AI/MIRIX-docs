@@ -1,6 +1,6 @@
 # Quick Start
 
-This guide will help you get Mirix up and running quickly on your system.
+This guide will help you get MIRIX up and running quickly on your system.
 
 ## Prerequisites
 
@@ -19,9 +19,9 @@ Before starting, ensure you have:
 ## Step 1: Clone and Setup
 
 ```bash
-# Clone the Mirix repository
-git clone https://github.com/Mirix-AI/Mirix.git
-cd Mirix
+# Clone the MIRIX repository
+git clone https://github.com/Mirix-AI/MIRIX.git
+cd MIRIX
 
 # Create and activate virtual environment
 python -m venv mirix-env
@@ -53,7 +53,7 @@ MAX_SCREENSHOTS=1000   # maximum screenshots to store
 
 !!! warning "API Key Required"
     
-    You must obtain a GEMINI API key from [Google AI Studio](https://makersuite.google.com/app/apikey) to use Mirix.
+    You must obtain a GEMINI API key from [Google AI Studio](https://makersuite.google.com/app/apikey) to use MIRIX.
 
 ## Step 3: Initialize Database
 
@@ -69,7 +69,7 @@ python scripts/init_db.py
 
 If using SQLite, the database will be created automatically on first run.
 
-## Step 4: Start Mirix
+## Step 4: Start MIRIX
 
 ```bash
 # Start the main application
@@ -79,11 +79,11 @@ python main.py
 You should see output similar to:
 
 ```
-[INFO] Initializing Mirix Multi-Agent System...
+[INFO] Initializing MIRIX Multi-Agent System...
 [INFO] Memory system initialized with 6 components
 [INFO] 8 agents loaded and ready
 [INFO] Screenshot capture started (interval: 1s)
-[INFO] Mirix is now running and tracking your activities
+[INFO] MIRIX is now running and tracking your activities
 ```
 
 ## Step 5: Test the System
@@ -110,13 +110,13 @@ Try some example queries:
 
 ### Backend API Usage
 
-You can also interact with Mirix programmatically:
+You can also interact with MIRIX programmatically:
 
 ```python
-from mirix import MirixAgent
+from mirix import MIRIXAgent
 
 # Initialize the agent
-agent = MirixAgent()
+agent = MIRIXAgent()
 
 # Search memories
 results = agent.search_memory("meeting notes", memory_type="episodic")
@@ -130,11 +130,11 @@ print(summary)
 
 !!! success "You're Ready!"
     
-    Mirix is now tracking your screen activities and building your personal memory base.
+    MIRIX is now tracking your screen activities and building your personal memory base.
 
 ### Explore Further
 
-- **[Architecture Overview](../architecture/multi-agent-system.md)** - Understand how Mirix works
+- **[Architecture Overview](../architecture/multi-agent-system.md)** - Understand how MIRIX works
 - **[User Guide](../user-guide/backend-usage.md)** - Learn advanced usage patterns
 - **[Desktop App](../user-guide/desktop-app.md)** - Try the GUI interface
 - **[API Reference](../api/agent-api.md)** - Build custom integrations
@@ -172,7 +172,7 @@ print(summary)
 
 !!! tip "Memory Usage"
     
-    If Mirix uses too much memory, adjust settings:
+    If MIRIX uses too much memory, adjust settings:
     
     ```python
     # In config.py
@@ -183,7 +183,7 @@ print(summary)
 ### Getting Help
 
 - **Documentation**: Browse our comprehensive [user guide](../user-guide/backend-usage.md)
-- **Issues**: Report bugs on [GitHub Issues](https://github.com/Mirix-AI/Mirix/issues)
+- **Issues**: Report bugs on [GitHub Issues](https://github.com/Mirix-AI/MIRIX/issues)
 - **Contact**: Email us at [yuw164@ucsd.edu](mailto:yuw164@ucsd.edu)
 
 ---

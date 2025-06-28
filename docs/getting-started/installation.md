@@ -1,6 +1,6 @@
 # Installation
 
-This guide will walk you through setting up Mirix on your system with PostgreSQL for optimal performance.
+This guide will walk you through setting up MIRIX on your system with PostgreSQL for optimal performance.
 
 ## Prerequisites
 
@@ -10,13 +10,13 @@ This guide will walk you through setting up Mirix on your system with PostgreSQL
 
 !!! warning "API Key Required"
     
-    You'll need a GEMINI API key to use Mirix. Get one free from [Google AI Studio](https://aistudio.google.com/app/apikey).
+    You'll need a GEMINI API key to use MIRIX. Get one free from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
 ## Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/Mirix-AI/Mirix.git
-cd Mirix
+git clone https://github.com/Mirix-AI/MIRIX.git
+cd MIRIX
 ```
 
 ## Step 2: Set up Environment Variables
@@ -107,19 +107,19 @@ MIRIX_PG_URI=postgresql+pg8000://your_username@localhost:5432/mirix
 
 ### Option B: SQLite (Fallback)
 
-If PostgreSQL setup fails, Mirix will automatically use SQLite. Simply omit the PostgreSQL environment variables from your `.env` file.
+If PostgreSQL setup fails, MIRIX will automatically use SQLite. Simply omit the PostgreSQL environment variables from your `.env` file.
 
 !!! info "SQLite Limitations"
     
     SQLite works but has limitations in concurrent access and advanced search capabilities compared to PostgreSQL.
 
-## Step 5: Start Mirix
+## Step 5: Start MIRIX
 
 ```bash
 python main.py
 ```
 
-Mirix will automatically create all necessary database tables on first startup and begin processing on-screen activities immediately.
+MIRIX will automatically create all necessary database tables on first startup and begin processing on-screen activities immediately.
 
 ## Troubleshooting
 
@@ -174,14 +174,14 @@ Mirix will automatically create all necessary database tables on first startup a
 
 ### Verification
 
-Once installed, verify Mirix is working:
+Once installed, verify MIRIX is working:
 
-1. **Check the logs** - Mirix should start capturing screenshots
+1. **Check the logs** - MIRIX should start capturing screenshots
 2. **Test the chat** - Send a simple message to the agent
 3. **Check memory storage** - Verify data is being stored in your database
 
 ## Next Steps
 
-Now that Mirix is installed, learn how to use it:
+Now that MIRIX is installed, learn how to use it:
 
 [**Quick Start Guide →**](quick-start.md){ .md-button .md-button--primary } 

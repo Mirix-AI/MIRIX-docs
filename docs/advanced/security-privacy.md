@@ -1,6 +1,6 @@
 # Security & Privacy
 
-Mirix is designed with privacy and security as core principles. All sensitive data processing happens locally, with user-controlled privacy settings and enterprise-grade security practices.
+MIRIX is designed with privacy and security as core principles. All sensitive data processing happens locally, with user-controlled privacy settings and enterprise-grade security practices.
 
 ## Privacy Architecture
 
@@ -9,7 +9,7 @@ Mirix is designed with privacy and security as core principles. All sensitive da
 ```mermaid
 graph TB
     A[Screen Capture] --> B[Temporary Cloud Storage<br/>Your Google Cloud]
-    B --> C[Local Processing<br/>Mirix Agents]
+    B --> C[Local Processing<br/>MIRIX Agents]
     C --> D[Local Database<br/>PostgreSQL/SQLite]
     
     B --> E[Auto-Delete<br/>After Processing]
@@ -43,7 +43,7 @@ graph TB
 ### Capture Process
 
 ```python
-# Mirix screenshot workflow
+# MIRIX screenshot workflow
 def screenshot_workflow():
     # 1. Capture screenshot every second
     screenshot = capture_screen()
@@ -130,7 +130,7 @@ def secure_file_permissions(file_path):
     # Set read/write for owner only
     os.chmod(file_path, stat.S_IRUSR | stat.S_IWUSR)
 
-# Apply to all Mirix files
+# Apply to all MIRIX files
 secure_directories = [
     "~/.mirix/",
     "~/.mirix/backups/",
@@ -267,7 +267,7 @@ def secure_api_call(url, data, api_key):
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
-        "User-Agent": "Mirix/1.0"
+        "User-Agent": "MIRIX/1.0"
     }
     
     # Make request with security
@@ -359,7 +359,7 @@ def privacy_health_check():
 
 ### Data Protection Compliance
 
-Mirix follows privacy regulations including:
+MIRIX follows privacy regulations including:
 
 - **GDPR (General Data Protection Regulation)**
   - Right to be forgotten (data deletion)
@@ -535,7 +535,7 @@ def security_update_system():
             notify_user_update(update)
 ```
 
-By following these security and privacy practices, Mirix ensures that your personal data remains secure while providing the intelligent assistance you need.
+By following these security and privacy practices, MIRIX ensures that your personal data remains secure while providing the intelligent assistance you need.
 
 ## What's Next?
 

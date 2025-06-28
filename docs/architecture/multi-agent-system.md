@@ -1,6 +1,6 @@
 # Multi-Agent System
 
-Mirix consists of eight specialized agents that work collaboratively to process your digital activities and manage memory efficiently.
+MIRIX consists of eight specialized agents that work collaboratively to process your digital activities and manage memory efficiently.
 
 ## Agent Overview
 
@@ -311,7 +311,7 @@ routing_priorities:
   knowledge: ["semantic_memory", "procedural_memory"]
 ```
 
-This multi-agent architecture ensures that Mirix can efficiently process and organize your digital activities while maintaining high performance and accuracy.
+This multi-agent architecture ensures that MIRIX can efficiently process and organize your digital activities while maintaining high performance and accuracy.
 
 ## What's Next?
 

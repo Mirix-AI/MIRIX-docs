@@ -1,6 +1,6 @@
 # Memory API Reference
 
-Advanced API reference for direct memory management and operations in Mirix.
+Advanced API reference for direct memory management and operations in MIRIX.
 
 !!! info "Advanced API"
     
@@ -8,7 +8,7 @@ Advanced API reference for direct memory management and operations in Mirix.
 
 ## Overview
 
-The Memory API provides direct access to Mirix's six memory components, allowing for advanced memory operations, custom search implementations, and fine-grained control over memory management.
+The Memory API provides direct access to MIRIX's six memory components, allowing for advanced memory operations, custom search implementations, and fine-grained control over memory management.
 
 ## Memory Manager Classes
 
@@ -140,7 +140,7 @@ resource_manager = ResourceMemoryManager(agent_state)
 ```python
 # Add resource
 resource_manager.add_entry({
-    "title": "Mirix Documentation Site",
+    "title": "MIRIX Documentation Site",
     "summary": "Complete documentation website built with MkDocs",
     "resource_type": "website",
     "content": "Full HTML content of the documentation..."

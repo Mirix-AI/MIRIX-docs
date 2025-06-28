@@ -1,6 +1,6 @@
-# Mirix Documentation
+# MIRIX Documentation
 
-Professional documentation website for [Mirix](https://github.com/Mirix-AI/Mirix) - a multi-agent personal assistant for intelligent screen activity tracking.
+Professional documentation website for [MIRIX](https://github.com/Mirix-AI/MIRIX) - a multi-agent personal assistant for intelligent screen activity tracking.
 
 ## 📖 View Documentation
 
@@ -51,7 +51,7 @@ The built site will be in the `site/` directory.
 docs/
 ├── index.md                    # Homepage
 ├── getting-started/
-│   ├── overview.md            # What is Mirix
+│   ├── overview.md            # What is MIRIX
 │   ├── installation.md       # Installation guide
 │   └── quick-start.md         # Quick start tutorial
 ├── architecture/
@@ -165,12 +165,12 @@ mkdocs serve --strict
 ### Getting Help
 
 - **Documentation Issues**: [Open an issue](https://github.com/Mirix-AI/MIRIX-docs/issues)
-- **Mirix Project**: [Main repository](https://github.com/Mirix-AI/Mirix)
+- **MIRIX Project**: [Main repository](https://github.com/Mirix-AI/MIRIX)
 - **Contact**: yuw164@ucsd.edu
 
 ## 📄 License
 
-This documentation is licensed under the same terms as the Mirix project - see the [MIT License](https://github.com/Mirix-AI/Mirix/blob/main/LICENSE).
+This documentation is licensed under the same terms as the MIRIX project - see the [MIT License](https://github.com/Mirix-AI/MIRIX/blob/main/LICENSE).
 
 ---
 

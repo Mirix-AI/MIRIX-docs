@@ -1,10 +1,10 @@
-![Mirix Logo](assets/logo.png)
+![MIRIX Logo](assets/logo.png)
 
 ## Overview
 
-**Mirix** is a multi-agent personal assistant designed to track on-screen activities and answer user questions intelligently. By capturing real-time visual data and consolidating it into structured memories, Mirix transforms raw inputs into a rich knowledge base that adapts to your digital experiences.
+**MIRIX** is a multi-agent personal assistant designed to track on-screen activities and answer user questions intelligently. By capturing real-time visual data and consolidating it into structured memories, MIRIX transforms raw inputs into a rich knowledge base that adapts to your digital experiences.
 
-Mirix leverages a unique multi-layered memory system comprising six distinct memory components and eight specialized agents, ensuring that data is processed efficiently and securely.
+MIRIX leverages a unique multi-layered memory system comprising six distinct memory components and eight specialized agents, ensuring that data is processed efficiently and securely.
 
 <!-- ![Examples](assets/mirix_exp.jpg) -->
 
@@ -12,7 +12,7 @@ Mirix leverages a unique multi-layered memory system comprising six distinct mem
 
 ### Multi-Agent System
 
-Mirix consists of eight specialized agents that work collaboratively:
+MIRIX consists of eight specialized agents that work collaboratively:
 
 - **Meta Agent:** Coordinates and updates various memory agents.
 - **Chat Agent:** Engages in natural language conversations with the user.
@@ -121,11 +121,11 @@ This architecture ensures that information is processed efficiently, stored appr
 
 ## Advanced Search Capabilities
 
-Mirix provides multiple sophisticated search methods for retrieving information from its memory components, with **PostgreSQL-native full-text search** as the primary implementation for optimal performance and scalability.
+MIRIX provides multiple sophisticated search methods for retrieving information from its memory components, with **PostgreSQL-native full-text search** as the primary implementation for optimal performance and scalability.
 
 ### Search Methods Overview
 
-Mirix supports four distinct search methods, each optimized for different use cases:
+MIRIX supports four distinct search methods, each optimized for different use cases:
 
 1. **`embedding`** - Vector similarity search using embeddings
 2. **`string_match`** - Simple string containment search  
@@ -193,14 +193,14 @@ PostgreSQL native search provides:
 - **Sub-millisecond response times** for most queries on indexed data
 - **Enterprise-grade reliability** with PostgreSQL's battle-tested full-text engine
 
-This architecture ensures optimal search performance while maintaining the semantic richness and contextual accuracy that Mirix users expect.
+This architecture ensures optimal search performance while maintaining the semantic richness and contextual accuracy that MIRIX users expect.
 
-## Get Started with the Desktop Mirix App
-
-
+## Get Started with the Desktop MIRIX App
 
 
-## Get Started with the Mirix Backend
+
+
+## Get Started with the MIRIX Backend
 First, initialize the agent:
 ```python
 from mirix.agent import AgentWrapper
@@ -236,7 +236,7 @@ The reason that we do not use base64 encoding for images is that they are too la
 
 ### Intelligent Memory Consolidation
 
-Mirix does not simply store raw data. Instead, it processes screen captures and contextual inputs to generate organized, searchable knowledge. This ensures that your digital experiences are converted into meaningful insights without overwhelming the system with unstructured information.
+MIRIX does not simply store raw data. Instead, it processes screen captures and contextual inputs to generate organized, searchable knowledge. This ensures that your digital experiences are converted into meaningful insights without overwhelming the system with unstructured information.
 
 ### Security & Privacy
 
@@ -261,8 +261,8 @@ Mirix does not simply store raw data. Instead, it processes screen captures and 
 
 1. **Clone the Repository:**
     ```bash
-    git clone https://github.com/Mirix-AI/Mirix.git
-    cd Mirix
+    git clone https://github.com/Mirix-AI/MIRIX.git
+    cd MIRIX
     ```
 
 2. **Configure the Environment:**
@@ -278,7 +278,7 @@ Mirix does not simply store raw data. Instead, it processes screen captures and 
 
 4. **Set up PostgreSQL Database (Recommended):**
     
-    Mirix uses PostgreSQL for better performance, scalability, and vector search capabilities.
+    MIRIX uses PostgreSQL for better performance, scalability, and vector search capabilities.
     
     **Install PostgreSQL and pgvector:**
     ```bash
@@ -320,18 +320,18 @@ Mirix does not simply store raw data. Instead, it processes screen captures and 
     
     > **Note**: This setup uses your system user (which has superuser privileges) for simplicity in development environments. For production use, consider creating a dedicated PostgreSQL user with limited privileges.
     
-    **That's it!** Mirix will automatically create all necessary tables on first startup.
+    **That's it!** MIRIX will automatically create all necessary tables on first startup.
 
-5. **Start Mirix:**
+5. **Start MIRIX:**
     ```bash
     python main.py
     ```
 
-Mirix will automatically create all necessary database tables on first startup and begin processing on-screen activities immediately.
+MIRIX will automatically create all necessary database tables on first startup and begin processing on-screen activities immediately.
 
 ### Agent Backup and Restore
 
-Mirix provides built-in backup and restore functionality for your agent data:
+MIRIX provides built-in backup and restore functionality for your agent data:
 
 Since we need to use `pg_dump` to save the database, we need to make sure `pg_dump` is accessible by running:
 ```
@@ -405,7 +405,7 @@ The backup system automatically handles both PostgreSQL and SQLite databases, pr
    This ensures that the `pg_dump` utility is accessible in your system PATH.
 
 6. **Fallback to SQLite:**
-   If PostgreSQL setup fails, Mirix will automatically fall back to SQLite. Simply omit the PostgreSQL environment variables and run:
+   If PostgreSQL setup fails, MIRIX will automatically fall back to SQLite. Simply omit the PostgreSQL environment variables and run:
    ```bash
    python main.py
    ```
@@ -421,20 +421,20 @@ For evaluation, approximately 700 images were collected capturing one user's (th
 | Letta                  | Not Applicable      |
 | Letta-MultiModal       | Under Development   |
 | Mem0                   | Not Applicable      |
-| **Mirix-2025-04-08**   | **0.4167 (5/12)**   |
-| **Mirix-2025-04-20**   | **0.5000 (6/12)**   |
+| **MIRIX-2025-04-08**   | **0.4167 (5/12)**   |
+| **MIRIX-2025-04-20**   | **0.5000 (6/12)**   |
 
 **Dataset 2 (24 hours, 5886 images):**
 | Model | Accuracy $\uparrow$ | Storage Size (MB) $\downarrow$ |
 |-------|---------|---------|
 | Gemini | 0.00 (0/16) | 23091.67 |
-| **Mirix-2025-04-27** | 0.5000 (8/16) | **20.57** |
+| **MIRIX-2025-04-27** | 0.5000 (8/16) | **20.57** |
 
 
 
 ## License
 
-Mirix is released under the MIT License. See the [LICENSE](LICENSE) file for more details.
+MIRIX is released under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ## Contact
 

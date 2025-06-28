@@ -1,12 +1,12 @@
 # Backend Usage
 
-Learn how to use the Mirix backend directly through Python code for maximum flexibility and control over your personal assistant.
+Learn how to use the MIRIX backend directly through Python code for maximum flexibility and control over your personal assistant.
 
 ## Getting Started
 
 ### Initialize the Agent
 
-First, create and initialize your Mirix agent:
+First, create and initialize your MIRIX agent:
 
 ```python
 from mirix.agent import AgentWrapper
@@ -35,7 +35,7 @@ agent.send_message(
 
 #### Multi-Modal Content
 
-Mirix can process text, images, and voice recordings together:
+MIRIX can process text, images, and voice recordings together:
 
 ```python
 # Send information with images and voice
@@ -69,11 +69,11 @@ agent.send_message(
 ```python
 # Ask questions about your activities
 response = agent.send_message("What was I working on yesterday?")
-print("Mirix:", response)
+print("MIRIX:", response)
 
 # Get specific information
 response = agent.send_message("Show me documents about PostgreSQL")
-print("Mirix:", response)
+print("MIRIX:", response)
 ```
 
 ## Understanding Parameters

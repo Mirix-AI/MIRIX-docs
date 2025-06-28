@@ -1,6 +1,6 @@
 # Backup & Restore
 
-Mirix provides built-in backup and restore functionality for your agent data, ensuring your memories and configurations are safe and portable.
+MIRIX provides built-in backup and restore functionality for your agent data, ensuring your memories and configurations are safe and portable.
 
 ## Overview
 
@@ -297,7 +297,7 @@ def export_for_migration(source_agent, export_path):
         "mirix_version": get_mirix_version(),
         "database_type": get_database_type(),
         "migration_steps": [
-            "1. Install Mirix on target system",
+            "1. Install MIRIX on target system",
             "2. Configure database (PostgreSQL recommended)",
             "3. Set up environment variables",
             "4. Restore from this backup",
@@ -463,7 +463,7 @@ for backup in backup_stats[-5:]:  # Show last 5 backups
 
 !!! failure "Restore fails with version mismatch"
     
-    Check Mirix version compatibility:
+    Check MIRIX version compatibility:
     ```python
     # Check backup version
     with open("./my_backup/metadata.json") as f:
@@ -557,7 +557,7 @@ def create_secure_backup(agent, backup_path, encryption_key=None):
     return result
 ```
 
-The backup and restore system ensures your Mirix memories and configurations are always safe and portable across different systems and installations.
+The backup and restore system ensures your MIRIX memories and configurations are always safe and portable across different systems and installations.
 
 ## What's Next?
 

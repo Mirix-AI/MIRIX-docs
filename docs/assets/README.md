@@ -4,7 +4,7 @@ This directory contains images, logos, and other media files used in the documen
 
 ## Required Files
 
-- `logo.png` - Mirix logo (referenced in main documentation)
+- `logo.png` - MIRIX logo (referenced in main documentation)
 
 ## Adding Images
 
@@ -18,7 +18,7 @@ To add images to your documentation:
 
 ## Logo Specifications
 
-For the main Mirix logo:
+For the main MIRIX logo:
 - Format: PNG with transparency
 - Recommended size: 200x200 pixels
 - Background: Transparent
@@ -28,7 +28,7 @@ For the main Mirix logo:
 
 ```
 docs/assets/
-├── logo.png           # Main Mirix logo
+├── logo.png           # Main MIRIX logo
 ├── screenshots/       # Application screenshots
 ├── diagrams/         # Architecture diagrams (if not using mermaid)
 └── icons/            # Small icons and graphics
@@ -36,4 +36,4 @@ docs/assets/
 
 ## Note
 
-Currently, `logo.png` is referenced in the documentation but not present. You should add your Mirix logo here or update the references in the documentation files to remove the logo image. 
+Currently, `logo.png` is referenced in the documentation but not present. You should add your MIRIX logo here or update the references in the documentation files to remove the logo image. 

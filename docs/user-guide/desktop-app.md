@@ -1,6 +1,6 @@
 # Desktop App Guide
 
-The Mirix Desktop App provides a user-friendly graphical interface for interacting with your personal assistant and managing your digital activities.
+The MIRIX Desktop App provides a user-friendly graphical interface for interacting with your personal assistant and managing your digital activities.
 
 !!! info "Coming Soon"
     
@@ -41,7 +41,7 @@ graph TB
 ```
 
 ### Activity Monitoring
-- **Live Screenshot Feed**: See what Mirix is capturing in real-time
+- **Live Screenshot Feed**: See what MIRIX is capturing in real-time
 - **Activity Timeline**: Visual timeline of your digital activities
 - **Processing Status**: Monitor memory consolidation and agent activity
 - **Performance Metrics**: System resource usage and processing statistics
@@ -78,7 +78,7 @@ agent = AgentWrapper("./configs/mirix.yaml")
 
 # Send information to process
 agent.send_message(
-    message="Working on documentation for Mirix",
+    message="Working on documentation for MIRIX",
     image_uris=["/path/to/screenshot.png"],
     force_absorb_content=True
 )
@@ -91,7 +91,7 @@ print(response)
 ### Command Line Interface
 
 ```bash
-# Start Mirix in background mode
+# Start MIRIX in background mode
 python main.py --daemon
 
 # Send a message via CLI
@@ -119,7 +119,7 @@ print(agent.send_message('What did I work on yesterday?'))
 
 !!! note "Development Roadmap"
     
-    The desktop app is planned for release in Q2 2025. Follow our [GitHub repository](https://github.com/Mirix-AI/Mirix) for development updates.
+    The desktop app is planned for release in Q2 2025. Follow our [GitHub repository](https://github.com/Mirix-AI/MIRIX) for development updates.
 
 ## Contributing
 
@@ -127,7 +127,7 @@ Interested in helping build the desktop app? We welcome contributions:
 
 - **UI/UX Design**: Help design the user interface
 - **Frontend Development**: Build the application interface
-- **Backend Integration**: Connect the GUI to the Mirix backend
+- **Backend Integration**: Connect the GUI to the MIRIX backend
 - **Testing**: Help test and improve the user experience
 
 Contact us at `yuw164@ucsd.edu` or open an issue on GitHub to get involved.
@@ -137,20 +137,20 @@ Contact us at `yuw164@ucsd.edu` or open an issue on GitHub to get involved.
 ### Web Interface (Planned)
 
 A web-based interface is also planned, which will provide:
-- Browser-based access to Mirix
+- Browser-based access to MIRIX
 - Real-time updates via WebSocket
 - Mobile-responsive design
 - Cloud deployment options
 
 ### API Integration
 
-For developers who want to integrate Mirix into their own applications:
+For developers who want to integrate MIRIX into their own applications:
 
 ```python
 # Example API integration
-from mirix.api import MirixAPI
+from mirix.api import MIRIXAPI
 
-api = MirixAPI(config_path="./configs/mirix.yaml")
+api = MIRIXAPI(config_path="./configs/mirix.yaml")
 
 # Get recent activities
 activities = api.get_activities(limit=10, time_range="today")
@@ -164,7 +164,7 @@ api.absorb_content("Working on a new AI project", images=["screenshot.png"])
 
 ## What's Next?
 
-While waiting for the desktop app, learn how to use Mirix through the backend:
+While waiting for the desktop app, learn how to use MIRIX through the backend:
 
 [**Backend Usage →**](backend-usage.md){ .md-button .md-button--primary }
 

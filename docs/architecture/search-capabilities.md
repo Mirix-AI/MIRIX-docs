@@ -1,10 +1,10 @@
 # Search Capabilities
 
-Mirix provides multiple sophisticated search methods for retrieving information from its memory components, with **PostgreSQL-native full-text search** as the primary implementation for optimal performance and scalability.
+MIRIX provides multiple sophisticated search methods for retrieving information from its memory components, with **PostgreSQL-native full-text search** as the primary implementation for optimal performance and scalability.
 
 ## Search Methods Overview
 
-Mirix supports four distinct search methods, each optimized for different use cases:
+MIRIX supports four distinct search methods, each optimized for different use cases:
 
 | Method | Description | Best For | Performance |
 |--------|-------------|----------|-------------|
@@ -405,7 +405,7 @@ search:
     ttl: 3600  # 1 hour
 ```
 
-This powerful search system ensures that you can quickly and accurately find any information stored in your Mirix memory, making your digital assistant truly intelligent and responsive.
+This powerful search system ensures that you can quickly and accurately find any information stored in your MIRIX memory, making your digital assistant truly intelligent and responsive.
 
 ## What's Next?
 

@@ -1,0 +1,69 @@
+/* Custom MIRIX brand color */
+:root {
+    --md-primary-fg-color: #02080E !important;
+    --md-primary-fg-color--light: #02080E !important;
+    --md-primary-fg-color--dark: #02080E !important;
+}
+
+/* Force header background color */
+.md-header {
+    background-color: #02080E !important;
+}
+
+/* Force tab navigation color */
+.md-tabs {
+    background-color: #02080E !important;
+}
+
+/* Force active tab and navigation colors */
+.md-tabs__link--active,
+.md-nav__link--active {
+    color: #02080E !important;
+}
+
+/* Logo styling for rectangular logo */
+.md-header__button.md-logo img,
+.md-nav__button.md-logo img {
+    height: 1.8rem !important; /* Set appropriate height for header */
+    width: auto !important; /* Maintain aspect ratio */
+    max-width: 8rem !important; /* Prevent logo from being too wide */
+}
+
+/* Ensure logo container doesn't constrain the rectangular logo */
+.md-header__button.md-logo,
+.md-nav__button.md-logo {
+    width: auto !important;
+    min-width: auto !important;
+}
+
+/* Reduce the gap between sidebar and main content */
+
+/* Make the left sidebar narrower */
+.md-sidebar--primary {
+    width: 10rem !important; /* Reduced from default ~12.1rem */
+}
+
+/* Move main content closer to the left sidebar - keep original width */
+.md-content {
+    margin-left: 0.5rem !important; /* Reduce gap from sidebar */
+}
+
+/* On larger screens with sidebar visible */
+@media screen and (min-width: 76.25em) {
+    .md-sidebar--primary {
+        width: 9rem !important; /* Even narrower on large screens */
+    }
+    .md-content {
+        margin-left: 0.0rem !important; /* Bring content closer to sidebar */
+    }
+}
+
+/* On medium screens */
+@media screen and (min-width: 60em) and (max-width: 76.24em) {
+    .md-sidebar--primary {
+        width: 10.5rem !important;
+    }
+    .md-content {
+        margin-left: 0.4rem !important;
+    }
+} 

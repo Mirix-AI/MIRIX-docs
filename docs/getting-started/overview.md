@@ -1,10 +1,10 @@
 # Overview
 
-Mirix leverages a unique multi-layered memory system comprising six distinct memory components and eight specialized agents, ensuring that data is processed efficiently and securely.
+MIRIX leverages a unique multi-layered memory system comprising six distinct memory components and eight specialized agents, ensuring that data is processed efficiently and securely.
 
-## What is Mirix?
+## What is MIRIX?
 
-**Mirix** is a multi-agent personal assistant designed to track on-screen activities and answer user questions intelligently. By capturing real-time visual data and consolidating it into structured memories, Mirix transforms raw inputs into a rich knowledge base that adapts to your digital experiences.
+**MIRIX** is a multi-agent personal assistant designed to track on-screen activities and answer user questions intelligently. By capturing real-time visual data and consolidating it into structured memories, MIRIX transforms raw inputs into a rich knowledge base that adapts to your digital experiences.
 
 ## Key Capabilities
 
@@ -30,7 +30,7 @@ Mirix leverages a unique multi-layered memory system comprising six distinct mem
 - Secure screenshot handling with automatic cleanup
 - Enterprise-grade PostgreSQL security
 
-## How Mirix Works
+## How MIRIX Works
 
 ```mermaid
 flowchart TD
@@ -58,7 +58,7 @@ flowchart TD
 
 !!! example "Digital Activity Tracking"
     
-    Mirix automatically tracks your digital activities, from reading documents to browsing websites, creating a searchable timeline of your digital life.
+    MIRIX automatically tracks your digital activities, from reading documents to browsing websites, creating a searchable timeline of your digital life.
 
 !!! example "Context-Aware Assistance"
     
@@ -86,6 +86,6 @@ Ready to get started? Follow our step-by-step installation guide:
 
 [**Installation Guide →**](installation.md){ .md-button .md-button--primary }
 
-Or jump straight to using Mirix:
+Or jump straight to using MIRIX:
 
 [**Quick Start →**](quick-start.md){ .md-button } 

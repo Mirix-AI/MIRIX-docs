@@ -1,6 +1,6 @@
 # Memory Management
 
-Learn how to effectively manage and organize your Mirix memories for optimal performance and retrieval.
+Learn how to effectively manage and organize your MIRIX memories for optimal performance and retrieval.
 
 !!! info "Documentation in Progress"
     
@@ -8,7 +8,7 @@ Learn how to effectively manage and organize your Mirix memories for optimal per
 
 ## Overview
 
-Mirix's memory system is designed to automatically organize your digital activities into six distinct memory components. While most memory management happens automatically, you can optimize and tune the system for your specific needs.
+MIRIX's memory system is designed to automatically organize your digital activities into six distinct memory components. While most memory management happens automatically, you can optimize and tune the system for your specific needs.
 
 ## Memory Types Quick Reference
 

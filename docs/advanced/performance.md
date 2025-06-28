@@ -1,6 +1,6 @@
 # Performance
 
-Mirix delivers exceptional performance through intelligent memory consolidation, optimized search algorithms, and efficient data processing.
+MIRIX delivers exceptional performance through intelligent memory consolidation, optimized search algorithms, and efficient data processing.
 
 ## Evaluation Results
 
@@ -14,8 +14,8 @@ Performance comparison on a focused 1.5-hour session with 700 screenshots:
 | Letta | Not Applicable | Text-only system |
 | Letta-MultiModal | Under Development | - |
 | Mem0 | Not Applicable | Limited memory structure |
-| **Mirix-2025-04-08** | **0.4167 (5/12)** | First optimized version |
-| **Mirix-2025-04-20** | **0.5000 (6/12)** | Improved multi-agent coordination |
+| **MIRIX-2025-04-08** | **0.4167 (5/12)** | First optimized version |
+| **MIRIX-2025-04-20** | **0.5000 (6/12)** | Improved multi-agent coordination |
 
 ### Dataset 2: Extended Session (24 hours, 5,886 images)
 
@@ -24,7 +24,7 @@ Performance on a comprehensive 24-hour monitoring session:
 | Model | Accuracy ↑ | Storage Size (MB) ↓ |
 |-------|------------|---------------------|
 | Gemini | 0.00 (0/16) | 23,091.67 |
-| **Mirix-2025-04-27** | **0.5000 (8/16)** | **20.57** |
+| **MIRIX-2025-04-27** | **0.5000 (8/16)** | **20.57** |
 
 **Key Insights:**
 - **1000x+ storage efficiency** compared to raw storage
@@ -426,7 +426,7 @@ def optimize_memory_usage():
 
 ```python
 # Multi-instance deployment
-class MirixCluster:
+class MIRIXCluster:
     def __init__(self, nodes):
         self.nodes = nodes
         self.load_balancer = LoadBalancer(nodes)
@@ -480,7 +480,7 @@ class MirixCluster:
 - [ ] Resource limits configured
 - [ ] Backup strategy optimized
 
-The performance optimizations ensure Mirix can handle large-scale personal monitoring while maintaining responsive interactions and efficient resource usage.
+The performance optimizations ensure MIRIX can handle large-scale personal monitoring while maintaining responsive interactions and efficient resource usage.
 
 ## What's Next?
 
