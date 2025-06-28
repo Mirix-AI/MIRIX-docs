@@ -52,8 +52,7 @@ docs/
 ├── index.md                    # Homepage
 ├── getting-started/
 │   ├── overview.md            # What is MIRIX
-│   ├── installation.md       # Installation guide
-│   └── quick-start.md         # Quick start tutorial
+│   └── installation.md       # Installation and getting started guide
 ├── architecture/
 │   ├── multi-agent-system.md # Multi-agent architecture
 │   ├── memory-components.md   # Six memory types

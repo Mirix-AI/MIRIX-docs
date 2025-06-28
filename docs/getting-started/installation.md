@@ -1,10 +1,11 @@
-# Installation
+# Installation & Getting Started
 
-This guide will walk you through setting up MIRIX on your system with PostgreSQL for optimal performance.
+This guide will walk you through setting up MIRIX on your system and getting started with your first use.
 
 ## Prerequisites
 
 - **Python 3.11** or later
+- **Node.js 14** or later (for the desktop app)
 - A valid [**GEMINI API key**](https://aistudio.google.com/app/apikey)
 - **PostgreSQL 17** (recommended for best performance)
 
@@ -113,13 +114,75 @@ If PostgreSQL setup fails, MIRIX will automatically use SQLite. Simply omit the 
     
     SQLite works but has limitations in concurrent access and advanced search capabilities compared to PostgreSQL.
 
-## Step 5: Start MIRIX
+## Step 5: Start MIRIX Backend
 
 ```bash
 python main.py
 ```
 
 MIRIX will automatically create all necessary database tables on first startup and begin processing on-screen activities immediately.
+
+## Step 6: Launch the Desktop App
+
+To use the graphical interface, you'll need to set up and run the frontend application.
+
+### Prerequisites
+
+Ensure you have **Node.js** (version 14 or later) installed:
+
+- **macOS**: `brew install node`
+- **Ubuntu/Debian**: `sudo apt install nodejs npm`
+- **Windows**: Download from [nodejs.org](https://nodejs.org/)
+
+### Setup and Launch
+
+```bash
+# Navigate to the frontend directory
+cd frontend
+
+# Install frontend dependencies
+npm install
+
+# Launch the desktop application
+npm run electron-dev
+```
+
+The MIRIX desktop application will open, providing a user-friendly interface to interact with your personal assistant.
+
+!!! tip "Keep Both Running"
+    
+    Keep both the backend (`python main.py`) and frontend (`npm run electron-dev`) running simultaneously for the full MIRIX experience.
+
+
+
+## Getting Started
+
+Now that MIRIX is installed, you can start using it:
+
+1. **Launch the desktop app** - Run both the backend and frontend as described in Steps 5 and 6
+2. **Start with chat** - Initially, MIRIX functions as a chatbot where you can send messages
+3. **Enable screen monitoring** - Click the **"Screenshots"** tab on the right side of the app, then click **"Start Monitoring"** to begin screen capture
+4. **Let it learn** - Give MIRIX a few minutes to build your initial memory base from your screen activities
+5. **Ask questions** - Once monitoring is active, interact with MIRIX about your recent activities and documents
+6. **Explore features** - Check out the [User Guide](../user-guide/) for advanced usage
+
+!!! success "You're Ready!"
+    
+    MIRIX is now tracking your screen activities and building your personal memory base.
+
+### What Happens Next?
+
+- **Automatic Screenshot Capture**: MIRIX takes and processes screenshots every 1.5 seconds
+- **Memory Building**: Your activities are automatically categorized into 6 memory types
+- **Real-time Processing**: 8 specialized agents work together to understand and organize your data
+- **Privacy First**: All data is stored locally on your machine
+
+### Explore Further
+
+- **[Architecture Overview](../architecture/multi-agent-system.md)** - Understand how MIRIX works
+- **[User Guide](../user-guide/backend-usage.md)** - Learn advanced usage patterns
+- **[Desktop App](../user-guide/desktop-app.md)** - Try the GUI interface
+- **[API Reference](../api/agent-api.md)** - Build custom integrations
 
 ## Troubleshooting
 
@@ -172,16 +235,41 @@ MIRIX will automatically create all necessary database tables on first startup a
     export PATH="$(brew --prefix postgresql@17)/bin:$PATH"
     ```
 
-### Verification
+### Frontend Issues
 
-Once installed, verify MIRIX is working:
+??? failure "\"node: command not found\" error"
 
-1. **Check the logs** - MIRIX should start capturing screenshots
-2. **Test the chat** - Send a simple message to the agent
-3. **Check memory storage** - Verify data is being stored in your database
+    Install Node.js first:
+    ```bash
+    # macOS
+    brew install node
+    
+    # Ubuntu/Debian  
+    sudo apt install nodejs npm
+    
+    # Verify installation
+    node --version
+    npm --version
+    ```
 
-## Next Steps
+??? failure "\"npm install\" fails with permission errors"
 
-Now that MIRIX is installed, learn how to use it:
+    Fix npm permissions or use a Node version manager:
+    ```bash
+    # Option 1: Fix npm permissions (Linux/macOS)
+    sudo chown -R $(whoami) ~/.npm
+    
+    # Option 2: Use nvm (recommended)
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+    nvm install node
+    ```
 
-[**Quick Start Guide →**](quick-start.md){ .md-button .md-button--primary } 
+??? failure "\"Module not found\" errors when running electron"
+
+    Ensure all dependencies are installed:
+    ```bash
+    cd frontend
+    rm -rf node_modules package-lock.json
+    npm install
+    npm run electron-dev
+    ``` 

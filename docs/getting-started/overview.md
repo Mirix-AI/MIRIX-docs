@@ -2,14 +2,10 @@
 
 MIRIX leverages a unique multi-layered memory system comprising six distinct memory components and eight specialized agents, ensuring that data is processed efficiently and securely.
 
-## What is MIRIX?
-
-**MIRIX** is a multi-agent personal assistant designed to track on-screen activities and answer user questions intelligently. By capturing real-time visual data and consolidating it into structured memories, MIRIX transforms raw inputs into a rich knowledge base that adapts to your digital experiences.
-
 ## Key Capabilities
 
 ### :material-eye: Intelligent Screen Tracking
-- Takes screenshots every second
+- Takes screenshots every 1.5 seconds
 - Processes visual data in real-time
 - Automatically consolidates information
 
@@ -21,7 +17,6 @@ MIRIX leverages a unique multi-layered memory system comprising six distinct mem
 ### :material-search-web: Advanced Search
 - PostgreSQL-native BM25 search
 - Vector similarity search using embeddings
-- Fuzzy matching capabilities
 - Field-specific search across all memory types
 
 ### :material-shield-check: Privacy & Security
@@ -76,16 +71,10 @@ flowchart TD
 
 - **Python 3.11** or later
 - **PostgreSQL 17** (recommended) or SQLite
-- **GEMINI API key**
-- **4GB RAM** minimum, 8GB recommended
-- **10GB free disk space**
+- **GEMINI API key** (We use GEMINI because it can load images from google cloud and the API is free to end users.)
 
 ## What's Next?
 
-Ready to get started? Follow our step-by-step installation guide:
+Ready to get started? Follow our comprehensive installation and getting started guide:
 
-[**Installation Guide →**](installation.md){ .md-button .md-button--primary }
-
-Or jump straight to using MIRIX:
-
-[**Quick Start →**](quick-start.md){ .md-button } 
+[**Get Started →**](installation.md){ .md-button .md-button--primary } 

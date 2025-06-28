@@ -6,7 +6,7 @@ hide:
 
 # Welcome to MIRIX
 
-**MIRIX** is a multi-agent personal assistant designed to track on-screen activities and answer user questions intelligently. By capturing real-time visual data and consolidating it into structured memories, MIRIX transforms raw inputs into a rich knowledge base that adapts to your digital experiences.
+**MIRIX** is a multi-agent personal assistant designed to track on-screen activities and answer user questions intelligently. By capturing real-time visual data and consolidating it into structured memories, MIRIX transforms your digital life into a visualizable memory. 
 
 ---
 

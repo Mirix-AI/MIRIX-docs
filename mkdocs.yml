@@ -66,8 +66,7 @@ markdown_extensions:
 nav:
   - Getting Started:
     - Overview: getting-started/overview.md
-    - Installation: getting-started/installation.md
-    - Quick Start: getting-started/quick-start.md
+    - Getting Started: getting-started/installation.md
   - Architecture:
     - Multi-Agent System: architecture/multi-agent-system.md
     - Memory Components: architecture/memory-components.md
