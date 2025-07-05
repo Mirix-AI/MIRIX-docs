@@ -36,6 +36,65 @@
     min-width: auto !important;
 }
 
+/* Ensure hamburger menu is always positioned on the far left */
+.md-header__button.md-nav__button,
+.md-header__button[for="__drawer"],
+.md-header label[for="__drawer"] {
+    order: -1 !important;
+}
+
+/* Make header use flexbox for proper element ordering */
+.md-header__inner {
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Additional positioning for hamburger menu */
+.md-header__button[for="__drawer"],
+.md-header label[for="__drawer"] {
+    margin-right: 0 !important;
+}
+
+/* Force hamburger menu to leftmost position with high specificity */
+.md-header .md-header__inner .md-header__button[for="__drawer"],
+.md-header .md-header__inner label[for="__drawer"] {
+    order: -999 !important;
+    margin-left: 0 !important;
+    margin-right: 0.5rem !important;
+}
+
+/* Responsive logo and title behavior */
+/* Medium screens: Hide site title, keep logo positioned after menu button */
+@media screen and (max-width: 76.24em) and (min-width: 36em) {
+    .md-header__title {
+        display: none !important;
+    }
+    .md-header__button.md-logo {
+        display: block !important;
+        margin-left: 0.5rem !important; /* Add spacing between menu button and logo */
+        margin-right: auto !important; /* Push other buttons to the right */
+    }
+    /* Ensure hamburger menu is always on the far left */
+    .md-header__button.md-nav__button,
+    .md-header__button[for="__drawer"] {
+        order: -1 !important; /* Force menu button to be first */
+    }
+    .md-header__inner {
+        display: flex !important;
+        align-items: center !important;
+    }
+}
+
+/* Very narrow screens (phones): Hide both logo and title */
+@media screen and (max-width: 35.99em) {
+    .md-header__title {
+        display: none !important;
+    }
+    .md-header__button.md-logo {
+        display: none !important;
+    }
+}
+
 /* Reduce the gap between sidebar and main content */
 
 /* Make the left sidebar narrower */
@@ -66,4 +125,23 @@
     .md-content {
         margin-left: 0.4rem !important;
     }
+}
+
+/* Theme-specific diagram visibility */
+/* Light theme: show light diagrams, hide dark diagrams */
+.light-theme-diagram {
+    display: block;
+}
+
+.dark-theme-diagram {
+    display: none;
+}
+
+/* Dark theme: show dark diagrams, hide light diagrams */
+[data-md-color-scheme="slate"] .light-theme-diagram {
+    display: none;
+}
+
+[data-md-color-scheme="slate"] .dark-theme-diagram {
+    display: block;
 } 

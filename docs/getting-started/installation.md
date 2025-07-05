@@ -29,7 +29,7 @@ Create a `.env` file in the project root:
 touch .env
 ```
 
-Add your GEMINI API key to the `.env` file:
+Add your GEMINI API key to the `.env` file (you can get it for free at [Google AI Studio](https://aistudio.google.com/app/apikey)):
 
 ```dotenv
 GEMINI_API_KEY=your_api_key_here
@@ -146,6 +146,15 @@ npm install
 # Launch the desktop application
 npm run electron-dev
 ```
+
+!!! info "Two Windows Will Open"
+    
+    This command will open **two windows** - this is normal behavior:
+    
+    - **Desktop App Window**: The main MIRIX desktop application (an Electron app)
+    - **Browser Window**: A development server window that may open in your default browser
+    
+    You can safely close the browser window if it opens - the desktop app window is what you'll primarily use for interacting with MIRIX.
 
 The MIRIX desktop application will open, providing a user-friendly interface to interact with your personal assistant.
 
