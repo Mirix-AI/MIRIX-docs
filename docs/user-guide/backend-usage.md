@@ -29,6 +29,7 @@ agent = AgentWrapper("./configs/mirix.yaml")
 # Send basic text information
 agent.send_message(
     message="The moon now has a president.",
+    memorizing=True,
     force_absorb_content=True
 )
 ```
@@ -42,6 +43,7 @@ MIRIX can process text, images, and voice recordings together:
 agent.send_message(
     message="I'm working on a new project about machine learning.",
     image_uris=["/path/to/screenshot1.png", "/path/to/screenshot2.png"],
+    memorizing=True,
     force_absorb_content=True
 )
 ```
@@ -60,6 +62,7 @@ agent.send_message(
         {'type': 'image', 'image_url': "base64_encoded_image"}
     ],
     image_uris=["/path/to/image_1", "/path/to/image_2"],
+    memorizing=True,
     force_absorb_content=True
 )
 ```
@@ -80,6 +83,30 @@ print("MIRIX:", response)
 
 ## Understanding Parameters
 
+### Memory Management Control
+
+The `memorizing` parameter controls where messages are routed:
+
+| Value | Destination | Purpose |
+|-------|-------------|---------|
+| `True` | Meta-memory-manager | Store information for long-term recall and knowledge building |
+| `False` | Chat agent | Direct conversation without memory storage |
+
+```python
+# Store information for future reference
+agent.send_message(
+    message="Project meeting notes - new feature requirements discussed",
+    memorizing=True,
+    force_absorb_content=True
+)
+
+# Direct chat without memory storage
+agent.send_message(
+    message="What's the weather like today?",
+    memorizing=False
+)
+```
+
 ### Content Absorption Control
 
 The `force_absorb_content` parameter controls when information is processed:
@@ -93,12 +120,14 @@ The `force_absorb_content` parameter controls when information is processed:
 # Immediate processing for important content
 agent.send_message(
     message="Critical meeting notes from client call",
+    memorizing=True,
     force_absorb_content=True
 )
 
 # Batch processing for regular activities
 agent.send_message(
     message="Browsing documentation",
+    memorizing=True,
     force_absorb_content=False
 )
 ```
@@ -156,19 +185,22 @@ agent = AgentWrapper("./configs/mirix.yaml")
 # Morning briefing
 agent.send_message(
     message="Starting work day. Today's priorities: finish documentation, review code, team meeting at 2 PM",
-    force_absorb_content=True
+    memorizing=True,
+    force_absorb_content=True,
 )
 
 # Work activities (batch processing)
 agent.send_message(
     message="Working on API documentation",
     image_uris=["/screenshots/vscode_api_docs.png"],
+    memorizing=True,
     force_absorb_content=False
 )
 
 agent.send_message(
     message="Code review session with team",
     image_uris=["/screenshots/github_pr.png"],
+    memorizing=True,
     force_absorb_content=False
 )
 
@@ -176,6 +208,7 @@ agent.send_message(
 agent.send_message(
     message="Team meeting - discussed Q4 roadmap, new feature priorities",
     voice_files=["base64_meeting_recording"],
+    memorizing=True,
     force_absorb_content=True
 )
 
@@ -190,6 +223,7 @@ print("Today's Summary:", response)
 # Research topic introduction
 agent.send_message(
     message="Researching machine learning optimization techniques",
+    memorizing=True,
     force_absorb_content=True
 )
 
@@ -203,6 +237,7 @@ research_screenshots = [
 agent.send_message(
     message="Reading papers on gradient descent optimization",
     image_uris=research_screenshots,
+    memorizing=True,
     force_absorb_content=False
 )
 
@@ -212,6 +247,7 @@ agent.send_message(
         {'type': 'text', 'text': "Key insight from the research:"},
         {'type': 'text', 'text': "Adam optimizer performs better than SGD for sparse gradients"}
     ],
+    memorizing=True,
     force_absorb_content=True
 )
 
@@ -219,7 +255,6 @@ agent.send_message(
 findings = agent.send_message("What are the key points about optimization techniques I discovered?")
 print("Research Findings:", findings)
 ```
-
 
 
 <!-- ### Example 3: Document Processing
