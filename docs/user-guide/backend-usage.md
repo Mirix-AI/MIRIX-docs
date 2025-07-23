@@ -19,6 +19,10 @@ agent = AgentWrapper("./configs/mirix.yaml")
     
     Make sure your `mirix.yaml` configuration file and `.env` file are properly set up before initializing the agent.
 
+!!! info "Custom Models"
+    
+    Want to use your own models? Check out our [Custom Models Guide](custom-models.md) to learn how to serve models with vllm and integrate them with MIRIX.
+
 ## Basic Operations
 
 ### Sending Messages
@@ -320,6 +324,6 @@ print("Document Summary:", response)
 
 ## What's Next?
 
-Learn about performance optimization and advanced topics:
+Ready to explore more advanced topics?
 
-[**Performance →**](../advanced/performance.md){ .md-button .md-button--primary }
+[**Custom Models →**](custom-models.md){ .md-button .md-button--primary }

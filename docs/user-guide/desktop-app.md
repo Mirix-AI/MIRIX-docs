@@ -182,4 +182,5 @@ MIRIX provides powerful options for managing your memory data.
 
 Ready to dive deeper? Explore these advanced topics:
 
-[**Backend Usage →**](backend-usage.md){ .md-button .md-button--primary } 
+[**Backend Usage →**](backend-usage.md){ .md-button .md-button--primary }
+[**Custom Models →**](custom-models.md){ .md-button } 

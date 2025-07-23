@@ -74,6 +74,7 @@ nav:
   - User Guide:
     - Desktop App: user-guide/desktop-app.md
     - Backend Usage: user-guide/backend-usage.md
+    - Custom Models: user-guide/custom-models.md
   - Advanced:
     - Performance: advanced/performance.md
     - Security & Privacy: advanced/security-privacy.md
