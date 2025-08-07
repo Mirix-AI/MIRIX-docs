@@ -84,7 +84,8 @@ print("Agent restored from backup")
 agent = AgentWrapper("./configs/mirix.yaml")
 
 # Then load backup data
-result = agent.load_agent("./my_backup")
+config_path = "./my_backup/mirix_config.yaml"
+self._agent = AgentWrapper(str(config_path), load_from="./my_backup")
 
 if result['success']:
     print("Backup restored successfully")
