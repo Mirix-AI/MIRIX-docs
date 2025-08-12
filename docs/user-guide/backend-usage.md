@@ -23,7 +23,216 @@ agent = AgentWrapper("./configs/mirix.yaml")
     
     Want to use your own models? Check out our [Custom Models Guide](custom-models.md) to learn how to serve models with vllm and integrate them with MIRIX.
 
-## Basic Operations
+## Python SDK (Simplified Interface)
+
+For a simpler, more streamlined experience, you can use the MIRIX Python SDK. This approach is perfect for quick prototyping and straightforward use cases.
+
+### Quick Start with SDK
+
+```python
+from mirix import Mirix
+
+# Initialize memory agent (defaults to Google Gemini 2.0 Flash)
+memory_agent = Mirix(api_key="your-google-api-key")
+
+# Add memories
+memory_agent.add("The moon now has a president")
+memory_agent.add("John loves Italian food and is allergic to peanuts")
+
+# Chat with memory context
+response = memory_agent.chat("Does the moon have a president?")
+print(response)  # "Yes, according to my memory, the moon has a president."
+
+response = memory_agent.chat("What does John like to eat?") 
+print(response)  # "John loves Italian food. However, he's allergic to peanuts."
+```
+
+### SDK Initialization Options
+
+The SDK supports various initialization parameters for different use cases:
+
+```python
+from mirix import Mirix
+
+# Basic initialization (Google Gemini)
+agent = Mirix(api_key="your-google-api-key")
+
+# Use OpenAI models
+agent = Mirix(
+    api_key="your-openai-api-key",
+    model_provider="openai",
+    model="gpt-4o"
+)
+
+# Use Anthropic Claude
+agent = Mirix(
+    api_key="your-anthropic-api-key", 
+    model_provider="anthropic",
+    model="claude-3-sonnet"
+)
+
+# Use custom configuration file (default to `gemini-flash`)
+agent = Mirix(
+    api_key="your-gemini-api-key",
+    config_path="./configs/mirix_custom_model.yaml"
+)
+
+# Initialize with existing backup
+agent = Mirix(
+    api_key="your-api-key",
+    load_from="./my_backup_directory"
+)
+
+# Override model in default config
+agent = Mirix(
+    api_key="your-gemini-api-key",
+    model="gemini-2.0-flash"  # Override default model
+)
+```
+
+#### Supported Model Providers
+
+| Provider | `model_provider` Value | Environment Variable Set |
+|----------|----------------------|-------------------------|
+| Google Gemini | `"google_ai"`, `"google"`, `"gemini"` | `GEMINI_API_KEY` |
+| OpenAI | `"openai"`, `"gpt"` | `OPENAI_API_KEY` |
+| Anthropic | `"anthropic"`, `"claude"` | `ANTHROPIC_API_KEY` |
+| Custom | Any custom string | `{PROVIDER}_API_KEY` |
+
+### SDK Usage Examples
+
+#### Building a Personal Assistant
+
+```python
+from mirix import Mirix
+
+# Initialize with your API key
+assistant = Mirix(api_key="your-google-api-key")
+
+# Store personal information
+assistant.add("I prefer coffee over tea")
+assistant.add("My work hours are 9 AM to 5 PM")
+assistant.add("Important meeting with client on Friday at 2 PM")
+
+# Query your assistant
+response = assistant.chat("What's my schedule like this week?")
+print(response)
+
+response = assistant.chat("What drink do I prefer?")
+print(response)
+```
+
+#### Knowledge Base Building
+
+```python
+# Create a knowledge base about a project
+project_memory = Mirix(api_key="your-google-api-key")
+
+# Add project information
+project_memory.add("Project name: MIRIX Documentation")
+project_memory.add("Tech stack: Python, MkDocs, Material theme")
+project_memory.add("Team members: Alice (PM), Bob (Dev), Carol (Designer)")
+project_memory.add("Deadline: End of December 2024")
+
+# Query the knowledge base
+response = project_memory.chat("Who are the team members?")
+print(response)
+
+response = project_memory.chat("What technology are we using?")
+print(response)
+```
+
+### SDK Memory Management
+
+#### Clearing Memory and Conversation History
+
+```python
+# Clear conversation history while keeping memories
+result = agent.clear_conversation_history()
+if result['success']:
+    print(f"Cleared {result['messages_deleted']} conversation messages")
+    print("Memories are still preserved!")
+else:
+    print(f"Failed: {result['error']}")
+
+# Clear all memories (requires manual database reset)
+result = agent.clear()
+if not result['success']:
+    print(result['warning'])
+    for instruction in result['instructions']:
+        print(instruction)
+    print(f"Manual command: {result['manual_command']}")
+```
+
+### SDK Backup and Restore
+
+#### Save Current State
+
+```python
+# Save with auto-generated timestamp directory
+result = agent.save()
+if result['success']:
+    print(f"Backup saved to: {result['path']}")
+
+# Save to specific directory
+result = agent.save("./my_project_backup")
+if result['success']:
+    print(f"Backup completed: {result['message']}")
+else:
+    print(f"Backup failed: {result['error']}")
+```
+
+#### Load from Backup
+
+```python
+# Load state from backup
+result = agent.load("./my_project_backup")
+if result['success']:
+    print("Memory state restored successfully!")
+    # All previous memories are now available
+else:
+    print(f"Restore failed: {result['error']}")
+```
+
+### Advanced SDK Features
+
+#### Using Agent as a Callable
+
+```python
+# You can call the agent directly like a function
+agent = Mirix(api_key="your-api-key")
+agent.add("Python is my favorite programming language")
+
+# These are equivalent:
+response1 = agent.chat("What's my favorite language?")
+response2 = agent("What's my favorite language?")  # Callable interface
+
+print(response1)  # Same as response2
+```
+
+#### Chaining Operations
+
+```python
+# Initialize and set up memories in one flow
+agent = Mirix(api_key="your-api-key")
+
+# Add multiple memories
+memories = [
+    "Team standup every Monday at 9 AM",
+    "Sprint planning on first Tuesday of each month", 
+    "Code review sessions on Wednesday afternoons",
+    "Demo day every other Friday"
+]
+
+for memory in memories:
+    agent.add(memory)
+
+# Query the knowledge
+schedule = agent("What's our team meeting schedule?")
+print(schedule)
+```
+
+## Basic Operations (AgentWrapper)
 
 ### Sending Messages
 
@@ -85,7 +294,7 @@ response = agent.send_message("Show me documents about PostgreSQL")
 print("MIRIX:", response)
 ```
 
-## Understanding Parameters
+## Understanding Parameters (AgentWrapper)
 
 ### Memory Management Control
 
@@ -176,7 +385,7 @@ voice_files = [
 ]
 ``` -->
 
-## Complete Workflow Examples
+## Complete Workflow Examples (AgentWrapper)
 
 ### Example 1: Daily Work Session
 
