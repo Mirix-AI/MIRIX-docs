@@ -306,6 +306,6 @@ generation_config:
 
 ## What's Next?
 
-Ready to dive deeper into MIRIX development?
+Ready to explore more MIRIX features?
 
-[**Performance →**](../advanced/performance.md){ .md-button .md-button--primary } 
+[**Multi-User Support →**](multi-user.md){ .md-button .md-button--primary } 

@@ -73,6 +73,7 @@ nav:
     - Search Capabilities: architecture/search-capabilities.md
   - User Guide:
     - Desktop App: user-guide/desktop-app.md
+    - Multi-User Support: user-guide/multi-user.md
     - Backend Usage: user-guide/backend-usage.md
     - Custom Models: user-guide/custom-models.md
   - Advanced:
