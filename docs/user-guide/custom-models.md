@@ -117,6 +117,7 @@ generation_config:
 | `agent_name` | Name identifier for your agent | `mirix` |
 | `model_name` | Model name as served by vllm | `qwen3-32b` |
 | `model_endpoint` | API endpoint URL | `http://localhost:8001/v1` |
+| `system_prompt_folder` | (Optional) Custom system prompt folder path | `/path/to/system_prompt` |
 | `temperature` | Controls response randomness (0.0-1.0) | `0.6` |
 | `max_tokens` | Maximum tokens in response | `4096` |
 | `context_window` | Maximum context length | `32768` |
@@ -208,6 +209,70 @@ generation_config:
   temperature: 0.9  # Higher temperature for creativity
   max_tokens: 4096
   context_window: 32768
+```
+
+### Custom System Prompts
+
+MIRIX allows you to customize the system prompts used by your agent by specifying a custom system prompt folder in your configuration file.
+
+#### Configuration
+
+Add the `system_prompt_folder` parameter to your YAML configuration:
+
+```yaml
+agent_name: mirix
+model_name: qwen3-32b
+model_endpoint: http://localhost:8001/v1
+system_prompt_folder: /path/to/system_prompt
+generation_config:
+  temperature: 0.6
+  max_tokens: 4096
+  context_window: 32768
+```
+
+#### System Prompt Folder Structure
+
+The `system_prompt_folder` parameter should point to a directory containing your custom system prompt files. These prompts define how your agent behaves and responds.
+
+**Available prompt files:**
+
+```bash
+/path/to/system_prompt
+  ├── background_agent.txt        # Background processing agent prompt
+  ├── chat_agent.txt              # Main chat agent prompt
+  ├── core_memory_agent.txt       # Core memory management prompt
+  ├── episodic_memory_agent.txt   # Episodic memory prompt
+  ├── knowledge_vault_agent.txt   # Knowledge vault prompt
+  ├── meta_memory_agent.txt       # Meta memory manager prompt
+  ├── procedural_memory_agent.txt # Procedural memory prompt
+  ├── reflexion_agent.txt         # Reflexion agent prompt
+  ├── resource_memory_agent.txt   # Resource memory prompt
+  └── semantic_memory_agent.txt   # Semantic memory prompt
+```
+
+!!! tip "Flexible Customization"
+    
+    All prompt files are optional. You can customize only the agents you want to modify - MIRIX will use the default prompts for any files not found in your custom folder. This allows you to selectively override specific agent behaviors without needing to provide all 10 files.
+
+#### Example Configuration
+
+```python
+from mirix.agent import AgentWrapper
+
+# Initialize agent with custom system prompts
+agent = AgentWrapper("./configs/mirix_custom_prompts.yaml")
+```
+
+**Configuration file (`configs/mirix_custom_prompts.yaml`):**
+
+```yaml
+agent_name: mirix_debug
+model_name: gemini-2.0-flash
+system_prompt_folder: debug/base_debug  # Custom prompt folder
+generation_config:
+  temperature: 0.7
+  max_tokens: 4096
+  context_window: 8192
 ```
 
 ## Troubleshooting
