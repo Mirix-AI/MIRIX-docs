@@ -340,4 +340,4 @@ enhanced_query = "deep learning " + " ".join(search_context)
 
 Learn how to use these search capabilities in practice:
 
-[**User Guide →**](../user-guide/desktop-app.md){ .md-button .md-button--primary } 
+[**User Guide →**](../legacy/user-guide/desktop-app.md){ .md-button .md-button--primary } 

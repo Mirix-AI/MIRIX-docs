@@ -266,7 +266,7 @@ Now that MIRIX is installed, you can start using it:
 
 ### Explore Further
 
-- **[Architecture Overview](../architecture/multi-agent-system.md)** - Understand how MIRIX works
+- **[Architecture Overview](../../architecture/multi-agent-system.md)** - Understand how MIRIX works
 - **[User Guide](../user-guide/backend-usage.md)** - Learn advanced usage patterns
 - **[Desktop App](../user-guide/desktop-app.md)** - Try the GUI interface
 

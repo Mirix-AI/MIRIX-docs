@@ -184,6 +184,6 @@ To move your MIRIX agent to a new system:
 
 Learn about contributing:
 
-[**Contributing →**](../contributing.md){ .md-button .md-button--primary }
+[**Contributing →**](../../contributing.md){ .md-button .md-button--primary }
 
  

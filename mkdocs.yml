@@ -41,6 +41,9 @@ plugins:
   - search
   - mkdocstrings
 
+exclude_docs: |
+  assets/README.md
+
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
