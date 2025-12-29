@@ -14,7 +14,7 @@ MIRIX Desktop is your central hub for AI-powered personal assistance, featuring:
 
 ## Chat Interface
 
-![Chat Interface](../assets/images/img0.png)
+![Chat Interface](../../assets/images/img0.png)
 
 The main chat window is where you interact with your MIRIX assistant. Features include:
 
@@ -32,7 +32,7 @@ The main chat window is where you interact with your MIRIX assistant. Features i
 
 ## Screen Monitoring
 
-![Screen Monitor](../assets/images/img1.png)
+![Screen Monitor](../../assets/images/img1.png)
 
 The Screen Monitor feature allows your MIRIX assistant to observe your screen activity, providing contextual assistance based on what you're doing.
 
@@ -55,7 +55,7 @@ The Screen Monitor feature allows your MIRIX assistant to observe your screen ac
 
 ## Settings & Configuration
 
-![Settings](../assets/images/img2.png)
+![Settings](../../assets/images/img2.png)
 
 Customize your MIRIX experience through the comprehensive Settings panel.
 
@@ -83,7 +83,7 @@ Configure your assistant's personality and behavior:
 
 ### Timezone Settings
 
-![Timezone Configuration](../assets/images/timezone.png)
+![Timezone Configuration](../../assets/images/timezone.png)
 
 Set your local timezone to help your assistant understand:
 
@@ -99,8 +99,8 @@ Set your local timezone to help your assistant understand:
 
 ## Memory Management & Visualization
 
-![Memory Visualization](../assets/images/img3.png)
-![Memory Tree View](../assets/images/img4.png)
+![Memory Visualization](../../assets/images/img3.png)
+![Memory Tree View](../../assets/images/img4.png)
 
 MIRIX builds and maintains different types of memories about your activities and interactions. The memory management interface lets you explore and understand how your assistant perceives and organizes information about you.
 
@@ -137,7 +137,7 @@ Use the search functionality to:
 
 ## Data Export & Import
 
-![Upload & Export](../assets/images/upload_and_export.png)
+![Upload & Export](../../assets/images/upload_and_export.png)
 
 MIRIX provides powerful options for managing your memory data.
 

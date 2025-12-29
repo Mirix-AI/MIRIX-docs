@@ -24,7 +24,7 @@ The MIRIX Desktop App provides an intuitive interface for managing multiple user
 
 ### Adding a New User
 
-![Add User Dialog](../assets/images/add_user.png)
+![Add User Dialog](../../assets/images/add_user.png)
 
 1. **Open User Management** - Navigate to the **User Selection** section in the Settings
 2. **Click Add User** - Click the green **"+ Add User"** button

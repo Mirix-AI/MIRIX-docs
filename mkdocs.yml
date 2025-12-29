@@ -65,22 +65,31 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Getting Started:
-    - Installation & Getting Started: getting-started/installation.md
+  - Get Started:
+    - Overview: getting-started/overview.md
+    - Quickstart: getting-started/quickstart.md
+  - Memory Write:
+    - Configuration: memory-write/configuration.md
+  - Memory Search:
+    - Search: memory-search/search.md
   - Architecture:
     - Multi-Agent System: architecture/multi-agent-system.md
     - Memory Components: architecture/memory-components.md
     - Search Capabilities: architecture/search-capabilities.md
-  - User Guide:
-    - Desktop App: user-guide/desktop-app.md
-    - Multi-User Support: user-guide/multi-user.md
-    - Backend Usage: user-guide/backend-usage.md
-    - Custom Models: user-guide/custom-models.md
-    - Custom Tools: user-guide/custom-tools.md
-  - Advanced:
-    - Performance: advanced/performance.md
-    - Security & Privacy: advanced/security-privacy.md
-    - Backup & Restore: advanced/backup-restore.md
+  - Legacy:
+    - Overview: legacy/index.md
+    - Getting Started:
+      - Installation (Desktop): legacy/getting-started/installation.md
+    - User Guide:
+      - Desktop App: legacy/user-guide/desktop-app.md
+      - Multi-User Support: legacy/user-guide/multi-user.md
+      - Backend Usage: legacy/user-guide/backend-usage.md
+      - Custom Models: legacy/user-guide/custom-models.md
+      - Custom Tools: legacy/user-guide/custom-tools.md
+    - Advanced:
+      - Performance: legacy/advanced/performance.md
+      - Security & Privacy: legacy/advanced/security-privacy.md
+      - Backup & Restore: legacy/advanced/backup-restore.md
   - Contributing: contributing.md
 
 extra_css:

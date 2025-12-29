@@ -1,6 +1,13 @@
 # MIRIX Documentation
 
-Professional documentation website for [MIRIX](https://github.com/Mirix-AI/MIRIX) - a multi-agent personal assistant for intelligent screen activity tracking.
+Professional documentation website for [MIRIX](https://github.com/Mirix-AI/MIRIX) - a memory system for agents.
+
+## About MIRIX
+
+Starting with version 0.1.6, MIRIX is a pure memory system that can be plugged into any existing agents:
+
+- **[Main Branch (v0.1.6+)](https://github.com/Mirix-AI/MIRIX/tree/main)**: Pure memory system for integration with any agent
+- **[Desktop-Agent Branch (v0.1.3)](https://github.com/Mirix-AI/MIRIX/tree/desktop-agent)**: Legacy desktop personal assistant with built-in agent (deprecated)
 
 ## 📖 View Documentation
 

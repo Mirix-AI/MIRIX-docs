@@ -6,45 +6,44 @@ hide:
 
 # Welcome to MIRIX
 
-**MIRIX** is a multi-agent personal assistant designed to track on-screen activities and answer user questions intelligently. By capturing real-time visual data and consolidating it into structured memories, MIRIX transforms your digital life into a visualizable memory.
+**MIRIX** is a memory system for agents. It captures, structures, and retrieves memories so your agents can stay consistent over time.
+
+<table>
+  <tr>
+    <td style="border-left: 6px solid #d35400; background: #fff3e0; padding: 12px;">
+      <strong>Important Update: 0.1.6 (Main) vs 0.1.3 (Desktop Agent)</strong><br/>
+      Starting with <code>0.1.6</code>, the <a href="https://github.com/Mirix-AI/MIRIX/tree/main"><code>main</code> branch</a> is a brand-new release line where Mirix is a pure memory system that can be plugged into any existing agents. The desktop personal assistant (frontend + backend) has been deprecated and is no longer shipped on <code>main</code>. If you need the earlier desktop application with the built-in agent, use the <a href="https://github.com/Mirix-AI/MIRIX/tree/desktop-agent"><code>desktop-agent</code> branch</a>.
+    </td>
+  </tr>
+</table>
 
 ---
 
 <div class="grid cards" markdown>
 
--   :material-rocket-launch:{ .lg .middle } **Getting Started**
+-   :material-rocket-launch:{ .lg .middle } **Get Started**
 
     ---
 
-    Complete installation guide to get you up and running with MIRIX.
+    Overview and a fast path to your first memory write.
 
-    [:octicons-arrow-right-24: Get Started](getting-started/installation.md)
+    [:octicons-arrow-right-24: Overview](getting-started/overview.md)
 
--   :material-graph:{ .lg .middle } **Architecture**
-
-    ---
-
-    Learn about the multi-agent system, memory components, and search capabilities that power MIRIX.
-
-    [:octicons-arrow-right-24: View Architecture](architecture/multi-agent-system.md)
-
--   :material-book-open-page-variant:{ .lg .middle } **User Guide**
+-   :material-cog:{ .lg .middle } **Memory Write**
 
     ---
 
-    Comprehensive guides for using the desktop app, backend, and managing your memories.
+    Configure LLMs, embeddings, and retention policies.
 
-    [:octicons-arrow-right-24: User Guide](user-guide/desktop-app.md)
+    [:octicons-arrow-right-24: Configuration](memory-write/configuration.md)
 
-
-
--   :material-cog:{ .lg .middle } **Advanced**
+-   :material-magnify:{ .lg .middle } **Memory Search**
 
     ---
 
-    Advanced topics including backup & restore, performance optimization, and security settings.
+    Query memories with keyword and embedding search.
 
-    [:octicons-arrow-right-24: Advanced Topics](advanced/backup-restore.md)
+    [:octicons-arrow-right-24: Search](memory-search/search.md)
 
 -   :material-heart:{ .lg .middle } **Contributing**
 
@@ -62,7 +61,7 @@ hide:
 
 ```mermaid
 flowchart TD
-    A[Screen Capture] --> B[Meta Agent]
+    A[Inputs] --> B[Meta Agent]
     B --> C{Content Analysis}
     C --> D[Core Memory<br/>Personal Info]
     C --> E[Episodic Memory<br/>Activities]
@@ -71,7 +70,7 @@ flowchart TD
     C --> H[Resource Memory<br/>Documents]
     C --> I[Knowledge Vault<br/>Credentials]
     
-    J[User Query] --> K[Chat Agent]
+    J[Agent Query] --> K[Retrieval]
     K --> L[Memory Search]
     D --> L
     E --> L
@@ -84,41 +83,40 @@ flowchart TD
 
 ## Use Cases
 
-!!! example "Digital Activity Tracking"
+!!! example "Agent Memory"
     
-    MIRIX automatically tracks your digital activities, from reading documents to browsing websites, creating a searchable timeline of your digital life.
+    Persist key facts and decisions so agents remain consistent across sessions.
 
-!!! example "Context-Aware Assistance"
+!!! example "Retrieval and Recall"
     
-    Ask questions about your recent activities: "What was I reading about machine learning yesterday?" or "Where did I save that document about PostgreSQL?"
+    Query episodic and semantic memory with keyword or embedding search.
 
-!!! example "Knowledge Management"
+!!! example "Structured Knowledge"
     
-    Automatically extract and organize information from documents, websites, and applications you interact with.
+    Store procedures, resources, and core facts in dedicated memory types.
 
-!!! example "Workflow Documentation"
+!!! example "Multi-Agent Systems"
     
-    Learn and remember your common workflows, making it easier to repeat complex tasks.
+    Plug MIRIX into different agents without rebuilding memory pipelines.
 
 ## System Requirements
 
 - **Python 3.11** or later
-- **Node.js 14** or later (for the desktop app)
 - **PostgreSQL 17** (recommended) or SQLite
-- **GEMINI API key** (We use GEMINI because it can load images from google cloud and the API is free to end users.)
+- An API key for your LLM provider
 
 ---
 
-**Ready to transform your digital experience with intelligent memory?**
+**Ready to add memory to your agents?**
 
-[**Get Started Now →**](getting-started/installation.md){ .md-button .md-button--primary }
+[**Get Started Now**](getting-started/overview.md){ .md-button .md-button--primary }
 
 ## Key Capabilities
 
-### :material-eye: Intelligent Screen Tracking
-- Takes screenshots every 1.5 seconds
-- Processes visual data in real-time
-- Automatically consolidates information
+### :material-brain: Memory System
+- Six memory components with dedicated agents
+- Configurable retention and decay policies
+- Structured writes from conversation input
 
 ### :material-brain: Multi-Agent Architecture
 - **8 specialized agents** working collaboratively
@@ -133,5 +131,4 @@ flowchart TD
 ### :material-shield-check: Privacy & Security
 - All long-term data stored locally
 - User-controlled privacy settings
-- Secure screenshot handling with automatic cleanup
-- Enterprise-grade PostgreSQL security 
+- Enterprise-grade PostgreSQL security

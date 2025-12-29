@@ -54,7 +54,7 @@ python3 -m vllm.entrypoints.openai.api_server \
 
 Once your vllm server is running, add the model through the MIRIX Desktop App interface:
 
-![Add Local Model Dialog](../assets/images/set_model.png)
+![Add Local Model Dialog](../../assets/images/set_model.png)
 
 1. **Open Settings** - Navigate to **Settings** → **Model Configuration**
 2. **Add Local Model** - Click the "Add" button next to either Chat Agent Model or Memory Manager Model
