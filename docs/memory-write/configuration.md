@@ -6,6 +6,9 @@ Mirix uses a YAML configuration to define LLM settings, embeddings, and the meta
 
 The easiest way to initialize Mirix is using provider shortcuts:
 
+!!! info "Get Your API Key"
+    Sign up at [app.mirix.io](https://app.mirix.io) to get your API key.
+
 ```python
 from mirix import MirixClient
 

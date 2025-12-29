@@ -8,6 +8,9 @@ This quickstart uses the hosted API. If you are self-hosting, set `base_url` whe
 pip install mirix==0.1.6
 ```
 
+!!! info "Get Your API Key"
+    Sign up at [app.mirix.io](https://app.mirix.io) to get your API key.
+
 ## Initialize the Client
 
 ```python
